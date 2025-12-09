@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="icon" href="favicon.ico">
+<SCRIPT type="text/javascript" src="script.js"></SCRIPT>
+<title>C#_10_DesignPatterns</title>
+<style type="text/css"> 
+fieldset {
+    margin: 8px;
+    border: 1px solid silver;
+    padding: 8px;    
+    border-radius: 4px;
+}
+hr {
+	clear: both;
+}
+img {
+  float: left;
+  border: 1px;
+  border-style: solid;
+}
+body {
+  font-family: cursive;
+  font-size: x-large;
+}
+pre {
+	font-size: x-small;
+}
+.container { clear: both; display: block; position: relative; }
+
+.section {
+  font-family: courier;
+}
+</style>
+
+</head>
+<body onload="setMaxId(114);">
+<h1 id='top'>C#_10_DesignPatterns</h1>
+<div><span>The material is based on the <a href="https://app.pluralsight.com/library/courses/c-sharp-10-design-patterns">Pluralsight course</a> by <a href="https://github.com/KevinDockx/CSharp10DesignPatterns.git">Kevin Dockx</a></span></div>
+<hr/>
+<h3 class=section>CREATIONAL</h3>
+<div style='font-size:x-large'><a href="#Singleton" onclick='setCurrInd(7);' >Singleton</a>  </div>
+<div style='font-size:x-large'><a href="#FactoryMethod" onclick='setCurrInd(8);' >FactoryMethod</a>  </div>
+<div style='font-size:x-large'><a href="#AbstractFactory" onclick='setCurrInd(12);' >AbstractFactory</a>  </div>
+<div style='font-size:x-large'><a href="#Builder" onclick='setCurrInd(15);' >Builder</a>  </div>
+<div style='font-size:x-large'><a href="#Prototype" onclick='setCurrInd(20);' >Prototype</a>  </div>
+
+<hr/>
+<h3 class=section>STRUCTURAL</h3>
+
+<div style='font-size:x-large'><a href="#Adapter" onclick='setCurrInd(24);' >Adapter</a>  </div>
+<div style='font-size:x-large'><a href="#Bridge" onclick='setCurrInd(27);' >Bridge</a>  </div>
+<div style='font-size:x-large'><a href="#Decorator" onclick='setCurrInd(32);' >Decorator</a>  </div>
+<div style='font-size:x-large'><a href="#Composite" onclick='setCurrInd(35);' >Composite</a>  </div>
+<div style='font-size:x-large'><a href="#Facade" onclick='setCurrInd(40);' >Facade</a>  </div>
+<div style='font-size:x-large'><a href="#Proxy" onclick='setCurrInd(44);' >Proxy</a>  </div>
+<div style='font-size:x-large'><a href="#Flyweight" onclick='setCurrInd(50);' >Flyweight</a>  </div>
+
+<hr/>
+<h3 class=section>BEHAVIORAL</h3>
+<div style='font-size:x-large'><a href="#TemplateMethod" onclick='setCurrInd(58);' >TemplateMethod</a>  </div>
+<div style='font-size:x-large'><a href="#Strategy" onclick='setCurrInd(65);' >Strategy</a>  </div>
+<div style='font-size:x-large'><a href="#Command" onclick='setCurrInd(70);' >Command</a>  </div>
+<div style='font-size:x-large'><a href="#Memento" onclick='setCurrInd(76);' >Memento</a>  </div>
+<div style='font-size:x-large'><a href="#Mediator" onclick='setCurrInd(81);' >Mediator</a>  </div>
+<div style='font-size:x-large'><a href="#ChainOfResponsibility" onclick='setCurrInd(85);' >ChainOfResponsibility</a>  </div>
+<div style='font-size:x-large'><a href="#Observer" onclick='setCurrInd(91);' >Observer</a>  </div>
+<div style='font-size:x-large'><a href="#State" onclick='setCurrInd(95);' >State</a>  </div>
+<div style='font-size:x-large'><a href="#Iterator" onclick='setCurrInd(100);' >Iterator</a>  </div>
+<div style='font-size:x-large'><a href="#Visitor" onclick='setCurrInd(106);' >Visitor</a>  </div>
+<div style='font-size:x-large'><a href="#Interpreter" onclick='setCurrInd(110);' >Interpreter</a>  </div>
+
+<hr/>
+<h3 class=section>OVERVIEW</h3>
+<div class='container' id='card001'><img src='01.png' alt='01' title='01'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card002'><img src='02.png' alt='02' title='02'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card003'><img src='03.png' alt='03' title='03'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' ><img src='03a.png' alt='03a' title='03a'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card004'><img src='04.png' alt='04' title='04'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card005'><img src='05.png' alt='05' title='05'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card006'><img src='06.png' alt='06' title='06'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Singleton'>Singleton</h2>
+<div class='container' id='card007'><img src='07.png' alt='07' title='07'/><fieldset><pre>public class Logger
+{
+    /// <summary>
+    /// Lazy ensures thread safety
+    /// </summary>
+    private static readonly Lazy<Logger> _lazyLogger = new Lazy<Logger>(() => new Logger());
+
+    public static Logger Instance
+    {
+        get { return _lazyLogger.Value; }
+    }
+
+    protected Logger() { }
+
+    public void Log(string message)
+    
+    {
+        Console.WriteLine($"Log: {message}");
+    }
+}</pre></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='FactoryMethod'>FactoryMethod</h2>
+<div class='container' id='card008'><img src='08.png' alt='08' title='08'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card009'><img src='09.png' alt='09' title='09'/><fieldset><pre>
+:::::::
+Service
+:::::::
+public abstract class DiscountService
+{
+    public abstract int DiscountPercentage { get; }
+
+    public override string ToString() => GetType().Name;
+}
+
+public class CountryDiscountService : DiscountService
+{
+    private readonly string _countryIdentifier;
+
+    public CountryDiscountService(string countryIdentifier)
+    {
+        _countryIdentifier = countryIdentifier;
+    }
+
+    public override int DiscountPercentage
+    {
+        get
+        {
+            switch (_countryIdentifier)
+            {
+                // if you're from Belgium, you get a better discount :)
+                case "BE":
+                    return 20;
+                default:
+                    return 10;
+            }
+        }
+    }
+}
+
+public class CodeDiscountService : DiscountService
+{
+    private readonly Guid _code;
+
+    public CodeDiscountService(Guid code)
+    {
+        _code = code;
+    }
+
+    public override int DiscountPercentage
+    {
+        // each code returns the same fixed percentage, but a code is only 
+        // valid once - include a check to so whether the code's been used before
+        // ... 
+        get => 15;
+    }
+}
+
+:::::::
+Factory
+:::::::
+public abstract class DiscountFactory
+{
+    public abstract DiscountService CreateDiscountService();
+}
+
+public class CountryDiscountFactory : DiscountFactory
+{
+    private readonly string _countryIdentifier;
+    public CountryDiscountFactory(string countryIdentifier)
+    {
+        _countryIdentifier = countryIdentifier;
+    }
+
+    public override DiscountService CreateDiscountService()
+    {
+        return new CountryDiscountService(_countryIdentifier);
+    }
+}
+
+public class CodeDiscountFactory : DiscountFactory
+{
+    private readonly Guid _code;
+
+    public CodeDiscountFactory(Guid code)
+    {
+        _code = code;
+    }
+
+    public override DiscountService CreateDiscountService()
+    {
+        return new CodeDiscountService(_code);
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card010'><img src='10.png' alt='10' title='10'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card011'><img src='11.png' alt='11' title='11'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='AbstractFactory'>AbstractFactory</h2>
+<div class='container' id='card012'><img src='12.png' alt='12' title='12'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card013'><img src='13.png' alt='13' title='13'/><fieldset><pre>
+:::::::
+Service
+:::::::
+public interface IDiscountService
+{
+    int DiscountPercentage { get; }
+}
+
+public interface IShippingCostsService
+{
+    decimal ShippingCosts { get; }
+}
+
+public interface IShoppingCartPurchaseFactory
+{
+    IDiscountService CreateDiscountService();
+    IShippingCostsService CreateShippingCostsService();
+}
+
+public class BelgiumDiscountService : IDiscountService
+{
+    public int DiscountPercentage => 20;
+}
+
+public class FranceDiscountService : IDiscountService
+{
+    public int DiscountPercentage => 10;
+}
+
+public class BelgiumShippingCostsService : IShippingCostsService
+{
+    public decimal ShippingCosts => 20;
+}
+
+public class FranceShippingCostsService : IShippingCostsService
+{
+    public decimal ShippingCosts => 25;
+}
+
+:::::::
+Factory
+:::::::
+public class BelgiumShoppingCartPurchaseFactory : IShoppingCartPurchaseFactory
+{
+    public IDiscountService CreateDiscountService()
+    {
+        return new BelgiumDiscountService();
+    }
+
+    public IShippingCostsService CreateShippingCostsService()
+    {
+        return new BelgiumShippingCostsService();
+    }
+}
+
+
+public class FranceShoppingCartPurchaseFactory : IShoppingCartPurchaseFactory
+{
+    public IDiscountService CreateDiscountService()
+    {
+        return new FranceDiscountService();
+    }
+
+    public IShippingCostsService CreateShippingCostsService()
+    {
+        return new FranceShippingCostsService();
+    }
+}
+
+::::::::::::
+ShoppingCart
+::::::::::::
+public class ShoppingCart
+{
+    private readonly IDiscountService _discountService;
+    private readonly IShippingCostsService _shippingCostsService;
+    private int _orderCosts;
+
+    // Constructor
+    public ShoppingCart(IShoppingCartPurchaseFactory factory)
+    {
+        _discountService = factory.CreateDiscountService();
+        _shippingCostsService = factory.CreateShippingCostsService();
+        // assume that the total cost of all the items we ordered = 200 euro
+        _orderCosts = 200;
+    }
+
+    public void CalculateCosts()
+    {
+        Console.WriteLine($"Total costs = {_orderCosts - (_orderCosts / 100 * _discountService.DiscountPercentage) + _shippingCostsService.ShippingCosts }");
+    }
+} 
+</pre></fieldset></div><hr/>
+<div class='container' id='card014'><img src='14.png' alt='14' title='14'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Builder'>Builder</h2>
+<div class='container' id='card015'><img src='15.png' alt='15' title='15'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card016'><img src='16.png' alt='16' title='16'/><fieldset><pre>/// <summary>
+/// "Director"
+/// </summary>
+public class Garage
+{
+    private CarBuilder? _builder;
+     
+    public Garage()
+    {}
+
+    public void Construct(CarBuilder builder)
+    {
+        _builder = builder;
+         
+        _builder.BuildEngine();
+        _builder.BuildFrame(); 
+    }
+
+    // variation: the show method on the director instead of on the product.
+    public void Show()
+    {
+        Console.WriteLine(_builder?.Car.ToString());
+    }
+}
+
+public abstract class CarBuilder
+{
+    public Car Car { get; private set; }
+
+    public CarBuilder(string carType)
+    {
+        Car = new Car(carType);
+    }
+    public abstract void BuildEngine();
+    public abstract void BuildFrame();
+}
+
+public class MiniBuilder : CarBuilder
+{
+    public MiniBuilder()
+        : base("Mini")
+    {
+    }
+
+    public override void BuildEngine()
+    {
+        Car.AddPart("'not a V8'");
+    }
+
+    public override void BuildFrame()
+    {
+        Car.AddPart("'3-door with stripes'");
+    }
+}
+
+public class BMWBuilder : CarBuilder
+{
+    // Invoke base class constructor
+    public BMWBuilder()
+        : base("BMW")
+    {
+    }
+
+    public override void BuildEngine()
+    {
+        Car.AddPart("'a fancy V8 engine'");
+    }
+
+    public override void BuildFrame()
+    {
+        Car.AddPart("'5-door with metallic finish'");
+    }
+}
+
+public class Car
+{
+    private readonly List<string> _parts = new();
+    private readonly string _carType;
+
+    public Car(string carType)
+    {
+        _carType = carType;
+    }
+
+    public void AddPart(string part)
+    {
+        _parts.Add(part);
+    }
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        foreach (string part in _parts)
+        {
+            sb.Append($"Car of type {_carType} has part {part}. ");
+        }
+
+        return sb.ToString();
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card017'><img src='17.png' alt='17' title='17'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card018'><img src='18.png' alt='18' title='18'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card019'><img src='19.png' alt='19' title='19'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Prototype'>Prototype</h2>
+<div class='container' id='card020'><img src='20.png' alt='20' title='20'/><fieldset><pre>public abstract class Person
+{
+    public abstract string Name { get; set; }
+
+    public abstract Person Clone(bool deepClone);  
+}
+
+
+public class Employee : Person
+{
+    public Manager Manager { get; set; }
+    public override string Name { get; set; }
+     
+    public Employee(string name, Manager manager)
+    {
+        Name = name;
+        Manager = manager;
+    }
+
+    public override Person Clone(bool deepClone = false)
+    {
+        if (deepClone)
+        {
+            var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            var objectAsJson = JsonConvert.SerializeObject(this, typeof(Employee), settings);
+            var result = JsonConvert.DeserializeObject<Person>(objectAsJson, settings);
+            return result is null ? (Person)MemberwiseClone() : result;
+        }
+
+        return (Person)MemberwiseClone();
+    }
+}
+
+
+public class Manager : Person
+{
+    public override string Name { get; set; }
+
+    public Manager(string name)
+    {
+        Name = name;
+    }
+
+    public override Person Clone(bool deepClone = false)
+    {
+        if (deepClone)
+        {
+            var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            var objectAsJson = JsonConvert.SerializeObject(this, typeof(Manager), settings);
+            var result = JsonConvert.DeserializeObject<Person>(objectAsJson, settings);
+            return result is null ? (Person)MemberwiseClone() : result;
+        }
+
+        return (Person)MemberwiseClone();
+    }
+}</pre></fieldset></div><hr/>
+<div class='container' id='card021'><img src='21.png' alt='21' title='21'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card022'><img src='22.png' alt='22' title='22'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card023'><img src='23.png' alt='23' title='23'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Adapter'>Adapter</h2>
+<div class='container' id='card024'><img src='24.png' alt='24' title='24'/><fieldset><pre>
+public class CityFromExternalSystem
+{
+    public string Name { get; private set; }
+    public string NickName { get; private set; }
+    public int Inhabitants { get; private set; }
+
+    public CityFromExternalSystem(string name, string nickName, int inhabitants)
+    {
+        Name = name;
+        NickName = nickName;
+        Inhabitants = inhabitants;
+    }
+}
+
+/// <summary>
+/// Adaptee
+/// </summary>
+public class ExternalSystem
+{
+    public CityFromExternalSystem GetCity()
+    {
+        return new CityFromExternalSystem("Antwerp", "'t Stad", 500000);
+    }
+}
+
+public class City
+{
+    public string FullName { get; private set; }
+    public long Inhabitants { get; private set; }
+
+    public City(string fullName, long inhabitants)
+    {
+        FullName = fullName;
+        Inhabitants = inhabitants;
+    }
+}
+
+/// <summary>
+/// Target
+/// </summary>
+public interface ICityAdapter
+{
+    City GetCity();
+}
+
+/// <summary>
+/// Adapter
+/// </summary>
+public class CityAdapter : ICityAdapter
+{
+    public ExternalSystem ExternalSystem { get; private set; } = new();
+
+    public City GetCity()
+    {
+        // call into the external system 
+        var cityFromExternalSystem = ExternalSystem.GetCity();
+
+        // adapt the CityFromExternalCity to a City 
+        return new City(
+            $"{cityFromExternalSystem.Name} - {cityFromExternalSystem.NickName}"
+            , cityFromExternalSystem.Inhabitants);
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card025'><img src='25.png' alt='25' title='25'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card026'><img src='26.png' alt='26' title='26'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Bridge'>Bridge</h2>
+<div class='container' id='card027'><img src='27.png' alt='27' title='27'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card028'><img src='28.png' alt='28' title='28'/><fieldset><pre>
+public abstract class Menu
+{
+    public readonly ICoupon _coupon;
+    public abstract int CalculatePrice();
+
+    public Menu(ICoupon coupon)
+    {
+        _coupon = coupon;
+    }
+}
+
+/// <summary>
+/// RefinedAbstraction
+/// </summary>
+public class VegetarianMenu : Menu
+{ 
+    public VegetarianMenu(ICoupon coupon): base(coupon)
+    { }
+
+    public override int CalculatePrice()
+    {
+        return 20 - _coupon.CouponValue;
+    }
+}
+
+/// <summary>
+/// RefinedAbstraction
+/// </summary>
+public class MeatBasedMenu : Menu
+{
+    public MeatBasedMenu(ICoupon coupon) : base(coupon)
+    { }
+
+    public override int CalculatePrice()
+    {
+        return 30 - _coupon.CouponValue;
+    }
+}
+
+/// <summary>
+/// Implementor
+/// </summary>
+public interface ICoupon
+{
+    int CouponValue { get; }
+}
+
+/// <summary>
+/// ConcreteImplementor
+/// </summary>
+public class NoCoupon : ICoupon
+{
+    public int CouponValue { get => 0; }
+}
+
+/// <summary>
+/// ConcreteImplementor
+/// </summary>
+public class OneEuroCoupon : ICoupon
+{
+    public int CouponValue { get => 1; }
+}
+
+/// <summary>
+/// ConcreteImplementor
+/// </summary>
+public class TwoEuroCoupon : ICoupon
+{
+    public int CouponValue { get => 2; }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card029'><img src='29.png' alt='29' title='29'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card030'><img src='30.png' alt='30' title='30'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card031'><img src='31.png' alt='31' title='31'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Decorator'>Decorator</h2>
+<div class='container' id='card032'><img src='32.png' alt='32' title='32'/><fieldset><pre>
+/// Component (as interface)
+public interface IMailService
+{
+    bool SendMail(string message);
+}
+
+/// ConcreteComponent1
+public class CloudMailService : IMailService
+{
+    public bool SendMail(string message)
+    {
+        Console.WriteLine($"Message \"{message}\" sent via {nameof(CloudMailService)}.");
+        return true;
+    }
+}
+
+/// ConcreteComponent2
+public class OnPremiseMailService : IMailService
+{
+    public bool SendMail(string message)
+    {
+        Console.WriteLine($"Message \"{message}\" sent via {nameof(OnPremiseMailService)}.");
+        return true;
+    }
+}
+
+/// Decorator (as abstract base class)
+public abstract class MailServiceDecoratorBase : IMailService
+{
+    private readonly IMailService _mailService;
+    public MailServiceDecoratorBase(IMailService mailService)
+    {
+        _mailService = mailService;
+    }
+
+    public virtual bool SendMail(string message)
+    {
+        return _mailService.SendMail(message);
+    }
+}
+
+/// ConcreteDecorator1
+public class StatisticsDecorator : MailServiceDecoratorBase
+{
+    public StatisticsDecorator(IMailService mailService) 
+        : base(mailService)
+    { }
+
+    public override bool SendMail(string message)
+    {
+        Console.WriteLine($"Collecting statistics in {nameof(StatisticsDecorator)}.");
+        return base.SendMail(message);
+    }
+}
+
+/// ConcreteDecorator2
+public class MessageDatabaseDecorator : MailServiceDecoratorBase
+{
+    public List<string> SentMessages { get; private set; } = new List<string>();
+
+    public MessageDatabaseDecorator(IMailService mailService)
+        : base(mailService)
+    { }
+
+    public override bool SendMail(string message)
+    {
+        if (base.SendMail(message))
+        {
+            // store sent message
+            SentMessages.Add(message);
+            return true;
+        };
+
+        return false;
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card033'><img src='33.png' alt='33' title='33'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card034'><img src='34.png' alt='34' title='34'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Composite'>Composite</h2>
+<div class='container' id='card035'><img src='35.png' alt='35' title='35'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card036'><img src='36.png' alt='36' title='36'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card037'><img src='37.png' alt='37' title='37'/><fieldset><pre>
+/// Component
+public abstract class FileSystemItem
+{
+    public string Name { get; set; }
+    
+    public abstract long GetSize();
+
+    public FileSystemItem(string name)
+    {
+        Name = name;
+    }
+}
+
+
+/// Leaf
+public class File : FileSystemItem
+{
+    private long _size; 
+    public File(string name, long size) : base(name)
+    {
+        _size = size;
+    }
+
+    public override long GetSize()
+    {
+        return _size;
+    }         
+}
+
+/// Composite
+public class Directory : FileSystemItem
+{
+    private long _size;
+    private List<FileSystemItem> _fileSystemItems { get; set; } = new List<FileSystemItem>();
+    
+    public Directory(string name, long size) : base(name)
+    {
+        _size = size;
+    }
+
+    public void Add(FileSystemItem itemToAdd)
+    {
+        _fileSystemItems.Add(itemToAdd);
+    }
+
+    public void Remove(FileSystemItem itemToRemove)
+    {
+        _fileSystemItems.Remove(itemToRemove);
+    }
+
+    public override long GetSize()
+    {
+        var treeSize = _size;
+        foreach (var fileSystemItem in _fileSystemItems)
+        {
+            treeSize += fileSystemItem.GetSize();
+        }
+        return treeSize;
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card038'><img src='38.png' alt='38' title='38'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card039'><img src='39.png' alt='39' title='39'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Facade'>Facade</h2>
+<div class='container' id='card040'><img src='40.png' alt='40' title='40'/><fieldset><pre>
+/// Facade
+public class DiscountFacade
+{
+    private readonly OrderService _orderService = new ();
+    private readonly CustomerDiscountBaseService _customerDiscountBaseService = new ();
+    private readonly DayOfTheWeekFactorService _dayOfTheWeekFactorService = new ();
+
+    public double CalculateDiscountPercentage(int customerId)
+    {
+        if (!_orderService.HasEnoughOrders(customerId))
+        {
+            return 0;
+        }
+
+        return _customerDiscountBaseService.CalculateDiscountBase(customerId)
+            * _dayOfTheWeekFactorService.CalculateDayOfTheWeekFactor();
+    }
+}
+
+/// Subsystem class
+public class OrderService
+{
+    public bool HasEnoughOrders(int customerId)
+    {
+        // does the customer have enough orders?  
+        // fake calculation for demo purposes
+        return (customerId > 5);
+    }
+}
+
+/// Subsystem class
+public class CustomerDiscountBaseService
+{
+    public double CalculateDiscountBase(int customerId)
+    {
+        // fake calculation for demo purposes
+        return (customerId > 8) ? 10 : 20;
+    }
+}
+
+/// Subsystem class
+public class DayOfTheWeekFactorService
+{
+    public double CalculateDayOfTheWeekFactor()
+    {
+        // fake calculation for demo purposes
+        switch (DateTime.UtcNow.DayOfWeek)
+        {
+            case DayOfWeek.Saturday:
+            case DayOfWeek.Sunday:
+                return 0.8;                
+            default:
+                return 1.2; 
+        }
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card041'><img src='41.png' alt='41' title='41'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card042'><img src='42.png' alt='42' title='42'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card043'><img src='43.png' alt='43' title='43'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Proxy'>Proxy</h2>
+<div class='container' id='card044'><img src='44.png' alt='44' title='44'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card045'><img src='45.png' alt='45' title='45'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card046'><img src='46.png' alt='46' title='46'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card047'><img src='47.png' alt='47' title='47'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card048'><img src='48.png' alt='48' title='48'/><fieldset><pre>
+/// Subject
+public interface IDocument
+{
+    void DisplayDocument();
+}
+
+/// RealSubject
+public class Document : IDocument
+{
+    public string? Title { get; private set; }
+    public string? Content { get; private set; }
+    public int AuthorId { get; private set; }
+    public DateTimeOffset LastAccessed { get; private set; }
+    private readonly string _fileName; 
+     
+    public Document(string fileName)
+    {
+        _fileName = fileName;
+        LoadDocument(fileName);
+    }
+
+    private void LoadDocument(string fileName)
+    {
+        Console.WriteLine("Executing expensive action: loading a file from disk");
+        // fake loading...
+        Thread.Sleep(1000);
+
+        Title = "An expensive document";
+        Content = "Lots and lots of content";
+        AuthorId = 1;
+        LastAccessed = DateTimeOffset.UtcNow;
+    }
+
+    public void DisplayDocument()
+    {
+        Console.WriteLine($"Title: {Title}, Content: {Content}");
+    }
+}
+
+/// Proxy
+public class DocumentProxy : IDocument
+{
+    // avoid creating the document until we need it 
+    private Lazy<Document> _document;
+    private string _fileName;
+
+    public DocumentProxy(string fileName)
+    {
+        _fileName = fileName;
+        _document = new Lazy<Document>(() => new Document(_fileName));
+    }
+
+    public void DisplayDocument()
+    {
+        _document.Value.DisplayDocument();       
+    }
+}
+
+public class ProtectedDocumentProxy : IDocument
+{
+    private string _fileName;
+    private string _userRole;
+    private DocumentProxy _documentProxy;
+
+    public ProtectedDocumentProxy(string fileName, 
+        string userRole)
+    {
+        _fileName = fileName;
+        _userRole = userRole;
+        _documentProxy = new DocumentProxy(_fileName);
+    }
+    
+    public void DisplayDocument()
+    {
+        Console.WriteLine($"Entering DisplayDocument in {nameof(ProtectedDocumentProxy)}.");
+
+        if (_userRole != "Viewer")
+        {
+            throw new UnauthorizedAccessException();
+        }
+
+        _documentProxy.DisplayDocument();
+
+        Console.WriteLine($"Exiting DisplayDocument in {nameof(ProtectedDocumentProxy)}.");
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card049'><img src='49.png' alt='49' title='49'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Flyweight'>Flyweight</h2>
+<div class='container' id='card050'><img src='50.png' alt='50' title='50'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card051'><img src='51.png' alt='51' title='51'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card052'><img src='52.png' alt='52' title='52'/><fieldset><pre>
+/// Flyweight
+public interface ICharacter
+{
+    void Draw(string fontFamily, int fontSize);
+}
+
+/// Concrete Flyweight
+public class CharacterA : ICharacter
+{
+    private char _actualCharacter = 'a';
+    private string _fontFamily = string.Empty;
+    private int _fontSize;
+
+    public void Draw(string fontFamily, int fontSize)
+    {
+        _fontFamily = fontFamily;
+        _fontSize = fontSize;
+        Console.WriteLine($"Drawing {_actualCharacter}, {_fontFamily} {_fontSize}");
+    }
+}
+
+/// Concrete Flyweight
+public class CharacterB : ICharacter
+{
+    private char _actualCharacter = 'b';
+    private string _fontFamily = string.Empty;
+    private int _fontSize;
+
+    public void Draw(string fontFamily, int fontSize)
+    {
+        _fontFamily = fontFamily;
+        _fontSize = fontSize;
+        Console.WriteLine($"Drawing {_actualCharacter}, {_fontFamily} {_fontSize}");
+    }
+}
+
+/// FlyweightFactory
+public class CharacterFactory
+{
+    private readonly Dictionary<char, ICharacter> _characters = new ();
+
+    public ICharacter? GetCharacter(char characterIdentifier)
+    { 
+        // Coes the character dictionary contain the one we need? 
+        if (_characters.ContainsKey(characterIdentifier))
+        {
+            Console.WriteLine("Character reuse");
+            return _characters[characterIdentifier];
+        }
+
+        // The character isn't in the dictionary. 
+        // Create it, store it, return it.
+        Console.WriteLine("Character construction");
+        switch (characterIdentifier)
+        {
+            case 'a':
+                _characters[characterIdentifier] = new CharacterA();
+                return _characters[characterIdentifier];
+            case 'b':
+                _characters[characterIdentifier] = new CharacterB();
+                return _characters[characterIdentifier];
+            // and so on...               
+        }
+
+        return null;
+    }
+
+    public ICharacter CreateParagraph(List<ICharacter> characters, int location)
+    {
+        return new Paragraph(characters, location);
+    }
+}
+
+/// Unshared Concrete Flyweight
+public class Paragraph : ICharacter
+{
+    private int _location;
+    private List<ICharacter> _characters = new();
+
+    public Paragraph(List<ICharacter> characters, int location)
+    {
+        _characters = characters;
+        _location = location;
+    }
+
+    public void Draw(string fontFamily, int fontSize)
+    {
+        Console.WriteLine($"Drawing in paragraph at location {_location}");
+        foreach (var character in _characters)
+        {
+            character.Draw(fontFamily, fontSize);
+        }  
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card053'><img src='53.png' alt='53' title='53'/><fieldset><p>Character glyphs are intrinsic, but color, size, etc. are extrinsic.<br/>If object identity NOT required, Flyweight may be applicable.<br/>If all 5 requirements are met, Flyweight may be a good use-case.</p></fieldset></div><hr/>
+<div class='container' id='card054'><img src='54.png' alt='54' title='54'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card055'><img src='55.png' alt='55' title='55'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card056'><img src='56.png' alt='56' title='56'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card057'><img src='57.png' alt='57' title='57'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='TemplateMethod'>TemplateMethod</h2>
+<div class='container' id='card058'><img src='58.png' alt='58' title='58'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card059'><img src='59.png' alt='59' title='59'/><fieldset><pre>/// AbstractClass
+public abstract class MailParser
+{
+    public virtual void FindServer()
+    {
+        Console.WriteLine("Finding server...");
+    }
+
+    public abstract void AuthenticateToServer();
+
+
+    public virtual string ParseHtmlMailBody(string identifier)
+    {
+        Console.WriteLine("Parsing HTML mail body...");
+        return $"This is the body of mail with id {identifier}";
+    }
+
+    /// Template method
+    public string ParseMailBody(string identifier)
+    {
+        Console.WriteLine("Parsing mail body (in template method)...");
+        FindServer();
+        AuthenticateToServer();
+        return ParseHtmlMailBody(identifier);
+    }
+}
+
+public class ExchangeMailParser : MailParser
+{
+    public override void AuthenticateToServer()
+    {
+        Console.WriteLine("Connecting to Exchange");
+    }
+}
+
+public class ApacheMailParser : MailParser
+{
+    public override void AuthenticateToServer()
+    {
+        Console.WriteLine("Connecting to Apache");
+    }
+}
+
+public class EudoraMailParser : MailParser
+{
+    public override void FindServer()
+    {
+        Console.WriteLine("Finding Eudora server through a custom algorithm...");
+    }
+    public override void AuthenticateToServer()
+    {
+        Console.WriteLine("Connecting to Eudora");
+    }
+}</pre></fieldset></div><hr/>
+<div class='container' id='card060'><img src='60.png' alt='60' title='60'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card061'><img src='61.png' alt='61' title='61'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card062'><img src='62.png' alt='62' title='62'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card063'><img src='63.png' alt='63' title='63'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card064'><img src='64.png' alt='64' title='64'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Strategy'>Strategy</h2>
+<div class='container' id='card065'><img src='65.png' alt='65' title='65'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card066'><img src='66.png' alt='66' title='66'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card067'><img src='67.png' alt='67' title='67'/><fieldset><pre>
+    /// Strategy
+    public interface IExportService
+    {
+        void Export(Order order);
+    }
+    
+    /// ConcreteStrategy
+    public class JsonExportService : IExportService
+    {
+        public void Export(Order order)
+        {
+            Console.WriteLine($"Exporting {order.Name} to Json.");
+        }
+    }
+    
+    /// ConcreteStrategy
+    public class XMLExportService : IExportService
+    {
+        public void Export(Order order)
+        {
+            Console.WriteLine($"Exporting {order.Name} to XML.");
+        }
+    }
+    
+    /// ConcreteStrategy
+    public class CSVExportService : IExportService
+    {
+        public void Export(Order order)
+        {
+            Console.WriteLine($"Exporting {order.Name} to CSV.");
+        }
+    }
+    
+    /// Context
+    public class Order
+    {
+        public string Customer { get; set; }
+        public int Amount { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }                 
+    
+        public Order(string customer, int amount, string name)
+        {
+            Customer = customer;
+            Amount = amount;
+            Name = name;
+        }
+    
+        public void Export(IExportService exportService)
+        {
+            if (exportService is null)
+            {
+                throw new ArgumentNullException(nameof(exportService));
+            }
+    
+            exportService.Export(this);
+        }
+    }</pre></fieldset></div><hr/>
+<div class='container' id='card068'><img src='68.png' alt='68' title='68'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card069'><img src='69.png' alt='69' title='69'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Command'>Command</h2>
+<div class='container' id='card070'><img src='70.png' alt='70' title='70'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card071'><img src='71.png' alt='71' title='71'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card072'><img src='72.png' alt='72' title='72'/><fieldset><pre>
+    /// ICommand
+    public interface ICommand
+    {
+        void Execute();
+        bool CanExecute();
+        void Undo();
+    }
+    
+    /// ConcreteCommand
+    public class AddEmployeeToManagerList : ICommand
+    {
+        private readonly IEmployeeManagerRepository _employeeManagerRepository;
+        private readonly int _managerId;
+        private readonly Employee? _employee;
+    
+        public AddEmployeeToManagerList(
+            IEmployeeManagerRepository employeeManagerRepository, 
+            int managerId, 
+            Employee? employee)
+        {
+            _employeeManagerRepository = employeeManagerRepository;
+            _managerId = managerId;
+            _employee = employee;
+        }
+    
+        public bool CanExecute()
+        {
+            // potentially check against business/technical rules that might block execution
+    
+            // employee shouldn't be null
+            if (_employee == null)
+            {
+                return false;
+            }
+    
+            // employee shouldn't be on the manager's list already
+            if (_employeeManagerRepository.HasEmployee(_managerId, _employee.Id))
+            {
+                return false;
+            }
+    
+            // other potential rule(s): ensure that an employee can only be added to  
+            // one manager's list at the same time, etc.
+            return true;
+        }
+    
+        public void Execute()
+        {
+            if (_employee == null)
+            {
+                return;
+            }
+    
+            _employeeManagerRepository.AddEmployee(_managerId, _employee);
+        }
+    
+        public void Undo()
+        {
+            if (_employee == null)
+            {
+                return;
+            }
+    
+            _employeeManagerRepository.RemoveEmployee(_managerId, _employee);
+        }
+    }
+    
+    /// Invoker
+    public class CommandManager
+    {
+        private readonly Stack<ICommand> _commands = new Stack<ICommand>();
+    
+        public void Invoke(ICommand command)
+        {
+            if (command.CanExecute())
+            {
+                command.Execute();
+                _commands.Push(command);
+            }
+        }
+    
+        public void Undo()
+        {
+            if (_commands.Any())
+            {
+                 _commands.Pop()?.Undo();
+            }
+        }
+    
+        public void UndoAll()
+        {
+            while (_commands.Any())
+            {
+                _commands.Pop()?.Undo();
+            }
+        }
+    }
+    
+    
+    
+    public class Employee
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        public Employee(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+    }
+    
+    public class Manager : Employee
+    {
+        public List<Employee> Employees = new();
+        public Manager(int id, string name) 
+            : base(id, name)
+        {
+        }
+    }
+    
+    /// Receiver (interface)
+    public interface IEmployeeManagerRepository
+    {
+        void AddEmployee(int managerId, Employee employee);
+        void RemoveEmployee(int managerId, Employee employee);
+        bool HasEmployee(int managerId, int employeeId);
+        void WriteDataStore();
+    }
+    
+    /// Receiver (implementation)
+    public class EmployeeManagerRepository : IEmployeeManagerRepository
+    {
+        // for demo purposes, use an in-memory datastore as a fake "manager list"
+        private List<Manager> _managers = new List<Manager>() 
+            { new Manager(1, "Katie"), new Manager(2, "Geoff") };
+    
+        public void AddEmployee(int managerId, Employee employee)
+        {
+            // in real-life, add additional input & error checks
+            _managers.First(m => m.Id == managerId).Employees.Add(employee);
+        }         
+    
+        public void RemoveEmployee(int managerId, Employee employee)
+        {
+            // in real-life, add additional input & error checks
+            _managers.First(m => m.Id == managerId).Employees.Remove(employee);
+        }
+    
+        public bool HasEmployee(int managerId, int employeeId)
+        {
+            // in real-life, add additional input & error checks
+            return _managers.First(m => m.Id == managerId).Employees.Any(e => e.Id == employeeId); 
+        }
+    
+        /// For demo purposes, write out the data store to the console window
+        public void WriteDataStore()
+        {
+            foreach (var manager in _managers)
+            {
+                Console.WriteLine($"Manager {manager.Id}, {manager.Name}");
+                if (manager.Employees.Any())
+                {
+                    foreach (var employee in manager.Employees)
+                    {
+                        Console.WriteLine($"\t Employee {employee.Id}, {employee.Name}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"\t No employees.");
+                }
+            }
+            Console.WriteLine();
+        }
+    }
+    
+</pre></fieldset></div><hr/>
+<div class='container' id='card073'><img src='73.png' alt='73' title='73'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card074'><img src='74.png' alt='74' title='74'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card075'><img src='75.png' alt='75' title='75'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Memento'>Memento</h2>
+<div class='container' id='card076'><img src='76.png' alt='76' title='76'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card077'><img src='77.png' alt='77' title='77'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card078'><img src='78.png' alt='78' title='78'/><fieldset><pre>
+/// ICommand
+public interface ICommand
+{
+    void Execute();
+    bool CanExecute();
+    void Undo();
+}
+
+/// Memento
+public class AddEmployeeToManagerListMemento
+{
+    public int ManagerId { get; private set; }
+    public Employee? Employee { get; private set; }
+
+    public AddEmployeeToManagerListMemento(int managerId, Employee? employee)
+    {
+        ManagerId = managerId;
+        Employee = employee;
+    }
+}
+
+/// ConcreteCommand
+public class AddEmployeeToManagerList : ICommand
+{
+    private readonly IEmployeeManagerRepository _employeeManagerRepository;
+    private int _managerId;
+    private Employee? _employee;
+
+    public AddEmployeeToManagerList(
+        IEmployeeManagerRepository employeeManagerRepository,
+        int managerId,
+        Employee? employee)
+    {
+        _employeeManagerRepository = employeeManagerRepository;
+        _managerId = managerId;
+        _employee = employee;
+    }
+
+    public AddEmployeeToManagerListMemento CreateMemento()
+    {
+        return new AddEmployeeToManagerListMemento(_managerId, _employee);
+    }
+
+    public void RestoreMemento(AddEmployeeToManagerListMemento memento)
+    {
+        _managerId = memento.ManagerId;
+        _employee = memento.Employee;
+    }
+
+    public bool CanExecute()
+    {
+        // potentially check against business/technical rules that might block execution
+
+        // employee shouldn't be null
+        if (_employee == null)
+        {
+            return false;
+        }
+
+        // employee shouldn't be on the manager's list already
+        if (_employeeManagerRepository.HasEmployee(_managerId, _employee.Id))
+        {
+            return false;
+        }
+
+        // other potential rule(s): ensure that an employee can only be added to  
+        // one manager's list at the same time, etc.
+        return true;
+    }
+
+    public void Execute()
+    {
+        if (_employee == null)
+        {
+            return;
+        }
+
+        _employeeManagerRepository.AddEmployee(_managerId, _employee);
+    }
+
+    public void Undo()
+    {
+        if (_employee == null)
+        {
+            return;
+        }
+
+        _employeeManagerRepository.RemoveEmployee(_managerId, _employee);
+    }
+}
+
+/// CareTaker (and Invoker from the Command pattern)
+public class CommandManager
+{
+    private readonly Stack<AddEmployeeToManagerListMemento> _mementos = new ();
+    private AddEmployeeToManagerList? _command;
+
+    public void Invoke(AddEmployeeToManagerList command)
+    {
+        // if the command has not been stored yet, store it - we will
+        // reuse it instead of storing different instances
+
+        if (_command == null)
+        {
+            _command = command;
+        }
+
+        if (command.CanExecute())
+        {
+            command.Execute();
+            _mementos.Push(command.CreateMemento());
+        }
+    }
+
+    public void Undo()
+    {
+        if (_mementos.Any())
+        {
+            _command?.RestoreMemento(_mementos.Pop());
+            _command?.Undo(); 
+        }
+    }
+
+    public void UndoAll()
+    {
+        while (_mementos.Any())
+        {
+            _command?.RestoreMemento(_mementos.Pop());
+            _command?.Undo();
+        }
+    }
+}
+
+
+
+public class Employee
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public Employee(int id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
+}
+
+public class Manager : Employee
+{
+    public List<Employee> Employees = new();
+    public Manager(int id, string name)
+        : base(id, name)
+    {
+    }
+}
+
+/// Receiver (interface)
+public interface IEmployeeManagerRepository
+{
+    void AddEmployee(int managerId, Employee employee);
+    void RemoveEmployee(int managerId, Employee employee);
+    bool HasEmployee(int managerId, int employeeId);
+    void WriteDataStore();
+}
+
+/// Receiver (implementation)
+public class EmployeeManagerRepository : IEmployeeManagerRepository
+{
+    // for demo purposes, use an in-memory datastore as a fake "manager list"
+    private List<Manager> _managers = new List<Manager>()
+        { new Manager(1, "Katie"), new Manager(2, "Geoff") };
+
+    public void AddEmployee(int managerId, Employee employee)
+    {
+        // in real-life, add additional input & error checks
+        _managers.First(m => m.Id == managerId).Employees.Add(employee);
+    }
+
+    public void RemoveEmployee(int managerId, Employee employee)
+    {
+        // in real-life, add additional input & error checks
+        _managers.First(m => m.Id == managerId).Employees.Remove(employee);
+    }
+
+    public bool HasEmployee(int managerId, int employeeId)
+    {
+        // in real-life, add additional input & error checks
+        return _managers.First(m => m.Id == managerId).Employees.Any(e => e.Id == employeeId);
+    }
+
+    /// For demo purposes, write out the data store to the console window
+    public void WriteDataStore()
+    {
+        foreach (var manager in _managers)
+        {
+            Console.WriteLine($"Manager {manager.Id}, {manager.Name}");
+            if (manager.Employees.Any())
+            {
+                foreach (var employee in manager.Employees)
+                {
+                    Console.WriteLine($"\t Employee {employee.Id}, {employee.Name}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"\t No employees.");
+            }
+        }
+        Console.WriteLine();
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card079'><img src='79.png' alt='79' title='79'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card080'><img src='80.png' alt='80' title='80'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Mediator'>Mediator</h2>
+<div class='container' id='card081'><img src='81.png' alt='81' title='81'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card082'><img src='82.png' alt='82' title='82'/><fieldset><pre>
+/// Mediator
+public interface IChatRoom
+{
+    void Register(TeamMember teamMember);
+    void Send(string from, string message);
+    void Send(string from, string to, string message);
+    void SendTo&lt;T&gt;(string from, string message) where T : TeamMember;
+}
+
+/// ConcreteMediator
+public class TeamChatRoom : IChatRoom
+{
+    private readonly Dictionary<string, TeamMember> teamMembers = new();
+
+    public void Register(TeamMember teamMember)
+    {
+        teamMember.SetChatroom(this);
+        if (!teamMembers.ContainsKey(teamMember.Name))
+        {
+            teamMembers.Add(teamMember.Name, teamMember);
+        }
+    }
+
+    public void Send(string from, string message)
+    {
+        foreach (var teamMember in teamMembers.Values)
+        {
+            teamMember.Receive(from, message);
+        }
+    }
+
+    public void Send(string from, string to, string message)
+    {
+        var teamMember = teamMembers[to];
+        teamMember?.Receive(from, message);
+    }
+
+    public void SendTo&lt;T&gt;(string from, string message) where T : TeamMember
+    {
+        foreach (var teamMember in teamMembers.Values.OfType&lt;T&gt;())
+        {
+            teamMember.Receive(from, message);
+        }
+    }
+}
+
+/// Colleague
+public abstract class TeamMember
+{
+    public string Name { get; set; }
+
+    private IChatRoom? _chatroom;
+
+    public TeamMember(string name)
+    {
+        Name = name; 
+    }
+
+    internal void SetChatroom(IChatRoom chatRoom)
+    {
+        _chatroom = chatRoom;
+    }
+
+    public void Send(string message)
+    {
+        _chatroom?.Send(Name, message);
+    }
+
+    public void Send(string to, string message)
+    {
+        _chatroom?.Send(Name, to, message);
+    }
+
+    public void SendTo&lt;T&gt;(string message) where T : TeamMember
+    {
+        _chatroom?.SendTo&lt;T&gt;(Name, message);
+    }
+
+    public virtual void Receive(string from, string message)
+    {
+        Console.WriteLine($"message from {from} to {Name}: {message}");
+    }
+}
+
+/// ConcreteColleague
+public class Lawyer : TeamMember
+{
+    private List<TeamMember> _teamMembersInChat = new();
+
+    public Lawyer(string name) : base(name)
+    {
+    }
+
+    public override void Receive(string from, string message)
+    {
+        Console.Write($"{nameof(Lawyer)} {Name} received: ");
+        base.Receive(from, message);
+    }
+}
+
+/// ConcreteColleague
+public class AccountManager : TeamMember
+{
+    public AccountManager(string name) : base(name)
+    {
+    }
+
+    public override void Receive(string from, string message)
+    {
+        Console.Write($"{nameof(AccountManager)} {Name} received: ");
+        base.Receive(from, message);
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card083'><img src='83.png' alt='83' title='83'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card084'><img src='84.png' alt='84' title='84'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='ChainOfResponsibility'>ChainOfResponsibility</h2>
+<div class='container' id='card085'><img src='85.png' alt='85' title='85'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card086'><img src='86.png' alt='86' title='86'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card087'><img src='87.png' alt='87' title='87'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card088'><img src='88.png' alt='88' title='88'/><fieldset><pre>
+public class Document
+{
+    public string Title { get; set; }
+    public DateTimeOffset LastModified { get; set; }
+    public bool ApprovedByLitigation { get; set; }
+    public bool ApprovedByManagement { get; set; }
+
+    public Document(
+        string title,
+        DateTimeOffset lastModified,
+        bool approvedByLitigation,
+        bool approvedByManagement)
+    {
+        Title = title;
+        LastModified = lastModified;
+        ApprovedByLitigation = approvedByLitigation;
+        ApprovedByManagement = approvedByManagement;
+    }
+}
+
+/// Handler
+public interface IHandler&lt;T&gt; where T : class
+{
+    IHandler&lt;T&gt; SetSuccessor(IHandler&lt;T&gt; successor);
+    void Handle(T request);
+}
+
+/// ConcreteHandler
+public class DocumentTitleHandler : IHandler&lt;Document&gt;
+{
+    private IHandler&lt;Document&gt;? _successor;
+
+    public void Handle(Document document)
+    {
+        if (document.Title == string.Empty)
+        {
+            // validation doesn't check out
+            throw new ValidationException(
+                new ValidationResult(
+                    "Title must be filled out", 
+                    new List&lt;string&gt;() { "Title" }), null, null);                
+        }
+
+        // go to the next handler
+        _successor?.Handle(document);
+    }
+
+    public IHandler&lt;Document&gt; SetSuccessor(IHandler&lt;Document&gt; successor)
+    {
+        _successor = successor;
+        return successor;
+    }
+}
+
+/// ConcreteHandler
+public class DocumentLastModifiedHandler : IHandler&lt;Document&gt;
+{
+    private IHandler&lt;Document&gt;? _successor;
+
+    public void Handle(Document document)
+    {
+        if (document.LastModified &lt; DateTime.UtcNow.AddDays(-30))
+        {
+            // validation doesn't check out
+            throw new ValidationException(
+                new ValidationResult(
+                    "Document must be modified in the last 30 days", 
+                    new List&lt;string&gt;() { "LastModified" }), null, null);
+        }
+        
+        // go to the next handler
+        _successor?.Handle(document);
+    }
+
+    public IHandler&lt;Document&gt; SetSuccessor(IHandler&lt;Document&gt; successor)
+    {
+        _successor = successor;
+        return successor;
+    }
+}
+
+/// ConcreteHandler
+public class DocumentApprovedByLitigationHandler : IHandler&lt;Document&gt;
+{
+    private IHandler&lt;Document&gt;? _successor;
+
+    public void Handle(Document document)
+    {
+        if (!document.ApprovedByLitigation)
+        {
+            // validation doesn't check out
+            throw new ValidationException(
+                new ValidationResult(
+                    "Document must be approved by litigation", 
+                    new List&lt;string&gt;() { "ApprovedByLitigation" }), null, null);
+        }
+
+        // go to the next handler
+        _successor?.Handle(document);
+    }
+
+    public IHandler&lt;Document&gt; SetSuccessor(IHandler&lt;Document&gt; successor)
+    {
+        _successor = successor;
+        return successor;
+    }
+}
+
+/// ConcreteHandler
+public class DocumentApprovedByManagementHandler : IHandler&lt;Document&gt;
+{
+    private IHandler&lt;Document&gt;? _successor;
+
+    public void Handle(Document document)
+    {
+        if (!document.ApprovedByManagement)
+        {
+            // validation doesn't check out
+            throw new ValidationException(
+                new ValidationResult(
+                    "Document must be approved by management",
+                    new List&lt;string&gt;() { "ApprovedByManagement" }), null, null);
+        }
+
+        // go to the next handler
+        _successor?.Handle(document);
+    }
+
+    public IHandler&lt;Document&gt; SetSuccessor(IHandler&lt;Document&gt; successor)
+    {
+        _successor = successor;
+        return successor;
+    }
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card089'><img src='89.png' alt='89' title='89'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card090'><img src='90.png' alt='90' title='90'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Observer'>Observer</h2>
+<div class='container' id='card091'><img src='91.png' alt='91' title='91'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card092'><img src='92.png' alt='92' title='92'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card093'><img src='93.png' alt='93' title='93'/><fieldset><pre>
+public class TicketChange
+{
+    public int Amount { get; private set; }
+    public int ArtistId { get; private set; }
+
+    public TicketChange(int artistId, int amount)
+    {
+        ArtistId = artistId;
+        Amount = amount;
+    }
+}
+
+/// Subject
+public abstract class TicketChangeNotifier
+{
+    private List<ITicketChangeListener> _observers = new();
+
+    public void AddObserver(ITicketChangeListener observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void RemoveObserver(ITicketChangeListener observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(TicketChange ticketChange)
+    {
+        foreach (var observer in _observers)
+        {
+            observer.ReceiveTicketChangeNotification(ticketChange);
+        }
+    }
+}
+
+/// ConcreteSubject
+public class OrderService : TicketChangeNotifier
+{
+    public void CompleteTicketSale(int artistId, int amount)
+    {
+        // change local datastore.  Datastore omitted in demo implementation.
+        Console.WriteLine($"{nameof(OrderService)} is changing its state.");
+        // notify observers 
+        Console.WriteLine($"{nameof(OrderService)} is notifying observers...");
+        Notify(new TicketChange(artistId, amount));
+    }         
+}
+
+/// Observer
+public interface ITicketChangeListener
+{
+    void ReceiveTicketChangeNotification(TicketChange ticketChange);
+}
+
+/// ConcreteObserver
+public class TicketResellerService : ITicketChangeListener
+{ 
+    public void ReceiveTicketChangeNotification(TicketChange ticketChange)
+    {
+        // update local datastore (datastore omitted in demo implementation)
+        Console.WriteLine($"{nameof(TicketResellerService)} notified " +
+            $"of ticket change: artist {ticketChange.ArtistId}, amount {ticketChange.Amount}");
+    }
+}
+
+/// ConcreteObserver
+public class TicketStockService : ITicketChangeListener
+{
+    public void ReceiveTicketChangeNotification(TicketChange ticketChange)
+    {
+        // update local datastore (datastore omitted in demo implementation)
+        Console.WriteLine($"{nameof(TicketStockService)} notified " +
+            $"of ticket change: artist {ticketChange.ArtistId}, amount {ticketChange.Amount}");
+    }
+}</pre></fieldset></div><hr/>
+<div class='container' id='card094'><img src='94.png' alt='94' title='94'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='State'>State</h2>
+<div class='container' id='card095'><img src='95.png' alt='95' title='95'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card096'><img src='96.png' alt='96' title='96'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card097'><img src='97.png' alt='97' title='97'/><fieldset><pre>
+/// Context
+public class BankAccount
+{
+    public BankAccountState BankAccountState { get; set; }
+    public decimal Balance { get { return BankAccountState.Balance; } }
+
+    public BankAccount()
+    {
+        BankAccountState = new RegularState(200, this);
+    }
+
+    /// Request a deposit
+    public void Deposit(decimal amount)
+    {
+        // let the current state handle the deposit
+        BankAccountState.Deposit(amount);
+    }
+
+    /// Request a withdrawal
+    public void Withdraw(decimal amount)
+    {
+        // let the current state handle the withdrawel
+        BankAccountState.Withdraw(amount);
+    }
+}
+
+/// State
+public abstract class BankAccountState
+{
+    public BankAccount BankAccount { get; protected set; } = null!;
+    public decimal Balance { get; protected set; }
+
+    public abstract void Deposit(decimal amount);
+    public abstract void Withdraw(decimal amount);
+}
+
+/// ConcreteState
+public class OverdrawnState : BankAccountState
+{
+    public OverdrawnState(decimal balance, BankAccount bankAccount)
+    {
+        Balance = balance;
+        BankAccount = bankAccount;
+    }
+
+    /// Handle a deposit
+    public override void Deposit(decimal amount)
+    {
+        Console.WriteLine($"In {GetType()}, depositing {amount}");
+        Balance += amount;
+        if (Balance >= 0)
+        {
+            // change state to regular
+            BankAccount.BankAccountState = new RegularState(Balance, BankAccount);
+        } 
+    }
+
+    /// Handle withdrawing
+    public override void Withdraw(decimal amount)
+    {
+        // cannot withdraw
+        Console.WriteLine($"In {GetType()}, cannot withdraw, balance {Balance}");
+    }
+}
+
+/// ConcreteState
+public class RegularState : BankAccountState
+{
+    public RegularState(decimal balance, BankAccount bankAccount)
+    {
+        Balance = balance;
+        BankAccount = bankAccount;
+    }
+
+    /// Handle a deposit
+    public override void Deposit(decimal amount)
+    {
+        Console.WriteLine($"In {GetType()}, depositing {amount}");
+        Balance += amount;
+        if (Balance >= 1000)
+        {
+            // change state to gold
+            BankAccount.BankAccountState = new GoldState(Balance, BankAccount);
+        }
+    }
+
+    /// Handle withdrawing
+    public override void Withdraw(decimal amount)
+    {
+        Console.WriteLine($"In {GetType()}, withdrawing {amount} from {Balance}");
+        // change state to overdrawn when withdrawing results in less than zero
+        Balance -= amount;
+        if (Balance < 0)
+        {
+            // change state to overdrawn
+            BankAccount.BankAccountState = new OverdrawnState(Balance, BankAccount);
+        }
+    }
+}
+
+/// ConcreteState
+public class GoldState : BankAccountState
+{
+    public GoldState(decimal balance, BankAccount bankAccount)
+    {
+        Balance = balance;
+        BankAccount = bankAccount;
+    }
+
+    /// Handle a deposit
+    public override void Deposit(decimal amount)
+    {
+        Console.WriteLine($"In {GetType()}, depositing {amount} + 10% bonus: {amount/10}");
+        Balance += amount + (amount/10);
+    }
+
+    /// Handle withdrawing
+    public override void Withdraw(decimal amount)
+    {
+        Console.WriteLine($"In {GetType()}, withdrawing {amount} from {Balance}");
+        // change state to overdrawn when withdrawing results in less than zero
+        Balance -= amount;
+        if (Balance < 1000 && Balance >= 0)
+        {
+            // change state to regular
+            BankAccount.BankAccountState = new RegularState(Balance, BankAccount);
+        }
+        else if (Balance < 0)
+        {
+            // change state to overdrawn
+            BankAccount.BankAccountState = new OverdrawnState(Balance, BankAccount);
+        }
+    }
+}</pre></fieldset></div><hr/>
+<div class='container' id='card098'><img src='98.png' alt='98' title='98'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card099'><img src='99.png' alt='99' title='99'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Iterator'>Iterator</h2>
+<div class='container' id='card100'><img src='100.png' alt='100' title='100'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card101'><img src='101.png' alt='101' title='101'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card102'><img src='102.png' alt='102' title='102'/><fieldset><pre>
+/// Iterator
+public interface IPeopleIterator 
+{
+    Person First();
+    Person Next();
+    bool IsDone { get; }
+    Person CurrentItem { get; }
+}
+
+/// ConcreteIterator
+public class PeopleIterator : IPeopleIterator
+{
+    private PeopleCollection _peopleCollection;
+    private int _current = 0; 
+ 
+    public PeopleIterator(PeopleCollection collection)
+    {
+        _peopleCollection = collection;
+    } 
+
+    public Person First()
+    {
+        _current = 0;
+        return _peopleCollection
+            .OrderBy(p => p.Name).ToList()[_current];
+    }
+
+    public Person Next()
+    {
+        _current++;
+        if (!IsDone)
+        {                
+            return _peopleCollection
+                .OrderBy(p => p.Name).ToList()[_current];   
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public bool IsDone
+    {
+        get { return _current >= _peopleCollection.Count; }
+    }
+
+    public Person CurrentItem
+    {
+        get { return _peopleCollection
+                .OrderBy(p => p.Name).ToList()[_current]; }
+    }   
+}
+
+/// Aggregate
+public interface IPeopleCollection  
+{
+    IPeopleIterator CreateIterator();
+}
+
+/// ConcreteAggregate
+public class PeopleCollection : List<Person>, IPeopleCollection
+{
+    public IPeopleIterator CreateIterator()
+    {
+        return new PeopleIterator(this);
+    } 
+}
+
+public class Person
+{
+    public string Name { get; set; }
+    public string Country { get; set; }
+
+    public Person(string name, string country)
+    {
+        Name = name;
+        Country = country;
+    }
+}
+
+::::::::::
+Program.cs
+::::::::::
+// create the collection
+PeopleCollection people = new PeopleCollection();
+people.Add(new Person("Kevin Dockx", "Belgium"));
+people.Add(new Person("Thomas Claudius Huber", "Germany"));
+people.Add(new Person("Gill Cleeren", "Belgium"));
+people.Add(new Person("Roland Guijt", "The Netherlands"));
+
+// create the interator
+var peopleIterator = people.CreateIterator();
+
+// use the iterator to run through the people
+// in the collection; they should come out 
+// in alphabetical order
+for (Person person = peopleIterator.First(); 
+    !peopleIterator.IsDone; 
+    person = peopleIterator.Next())
+{
+    Console.WriteLine(person?.Name);
+}
+</pre></fieldset></div><hr/>
+<div class='container' id='card103'><img src='103.png' alt='103' title='103'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card104'><img src='104.png' alt='104' title='104'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card105'><img src='105.png' alt='105' title='105'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Visitor'>Visitor</h2>
+<div class='container' id='card106'><img src='106.png' alt='106' title='106'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card107'><img src='107.png' alt='107' title='107'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card108'><img src='108.png' alt='108' title='108'/><fieldset><pre>
+/// Visitor (alternative)
+public interface IVisitor
+{
+    void Visit(IElement element);
+}
+
+/// Element
+public interface IElement
+{
+    void Accept(IVisitor visitor);
+}
+
+/// ConcreteElement
+public class Customer : IElement
+{
+    public decimal AmountOrdered { get; private set; }
+    public decimal Discount { get; set; }
+    public string Name { get; private set; }
+
+    public Customer(string name, decimal amountOrdered)
+    {
+        Name = name;
+        AmountOrdered = amountOrdered;
+    }
+
+    public void Accept(IVisitor visitor)
+    {
+        visitor.Visit(this);
+        Console.WriteLine($"Visited {nameof(Customer)} {Name}, discount given: {Discount}");
+    }
+}
+
+/// ConcreteElement
+public class Employee : IElement
+{
+    public int YearsEmployed { get; private set; }
+    public decimal Discount { get; set; }
+    public string Name { get; private set; }
+
+    public Employee(string name, int yearsEmployed)
+    {
+        Name = name;
+        YearsEmployed = yearsEmployed;
+    }
+
+    public void Accept(IVisitor visitor)
+    {
+        // alternative
+        // visitor.VisitEmployee(this);
+        visitor.Visit(this);
+        Console.WriteLine($"Visited {nameof(Employee)} {Name}, discount given: {Discount}");
+    }
+}
+
+/// ConcreteVisitor (alternative)
+public class DiscountVisitor : IVisitor
+{
+    public decimal TotalDiscountGiven { get; set; }
+
+    public void Visit(IElement element)
+    {
+        if (element is Customer)
+        {
+            VisitCustomer((Customer)element);
+        }
+        else if (element is Employee)
+        {
+            VisitEmployee((Employee)element);
+        }
+    }
+
+    private void VisitCustomer(Customer customer)
+    {
+        // percentage of total amount
+        var discount = customer.AmountOrdered / 10;
+        // set it on the customer
+        customer.Discount = discount;
+        // add it to the total amount
+        TotalDiscountGiven += discount;
+    }
+
+    private void VisitEmployee(Employee employee)
+    {
+        // fixed value depending on the amount of years employed
+        var discount = employee.YearsEmployed &lt; 10 ? 100 : 200;
+        // set it on the employee
+        employee.Discount = discount;
+        // add it to the total amount
+        TotalDiscountGiven += discount;
+    }
+}
+
+/// ObjectStructure
+public class Container
+{
+    public List&lt;Employee&gt; Employees { get; set; } = new();
+    public List&lt;Customer&gt; Customers { get; set; } = new();
+
+    public void Accept(IVisitor visitor)
+    {
+        foreach (var employee in Employees)
+        {
+            employee.Accept(visitor);
+        }
+        foreach (var customer in Customers)
+        {
+            customer.Accept(visitor);
+        }
+    }
+}
+
+::::::::::
+Program.cs
+::::::::::
+using Visitor;
+
+// create container & add conrete elements
+var container = new Container();
+container.Customers.Add(new Customer("Sophie", 500));
+container.Customers.Add(new Customer("Karen", 1000));
+container.Customers.Add(new Customer("Sven", 800));
+container.Employees.Add(new Employee("Kevin", 18));
+container.Employees.Add(new Employee("Tom", 5));
+
+// create visitor
+DiscountVisitor discountVisitor = new();
+
+// pass it through
+container.Accept(discountVisitor);
+
+// write out gathered amount
+Console.WriteLine($"Total discount: {discountVisitor.TotalDiscountGiven}");
+</pre></fieldset></div><hr/>
+<div class='container' id='card109'><img src='109.png' alt='109' title='109'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a>
+<h2 id='Interpreter'>Interpreter</h2>
+<div class='container' id='card110'><img src='110.png' alt='110' title='110'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card111'><img src='111.png' alt='111' title='111'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card112'><img src='112.png' alt='112' title='112'/><fieldset><pre>
+/// Context
+public class RomanContext
+{
+    public int Input { get; set; }
+    public string Output { get; set; } = string.Empty;
+    public RomanContext(int input)
+    {
+        Input = input;
+    }
+}
+
+/// AbstractExpression
+public abstract class RomanExpression
+{
+     public abstract void Interpret(RomanContext value); 
+}
+
+// 9 = IX
+// 8 = VIII
+// 7 = VII
+// 6 = VI
+// 5 = V
+// 4 = IV
+// 3 = III
+// 2 = II
+// 1 = I
+
+// simplified - each combination is reachable with substraction and these 4:
+// 9 = IX 
+// 5 = V
+// 4 = IV
+// 1 = I
+
+/// TerminalExpression
+public class RomanOneExpression : RomanExpression
+{
+    public override void Interpret(RomanContext value)
+    {
+        while ((value.Input - 9) >= 0)
+        {
+            value.Output += "IX";
+            value.Input -= 9;
+        }
+
+        while ((value.Input - 5) >= 0)
+        {
+            value.Output += "V";
+            value.Input -= 5;
+        }
+
+        while ((value.Input - 4) >= 0)
+        {
+            value.Output += "IV";
+            value.Input -= 4;
+        } 
+
+        while ((value.Input - 1) >= 0)
+        {
+            value.Output += "I";
+            value.Input -= 1;
+        }
+    }
+}
+
+// 90 = XC
+// 80 = LIII
+// 70 = LII
+// 60 = LX
+// 50 = L
+// 40 = XL
+// 30 = XXX
+// 20 = XX
+// 10 = X
+
+// simplified - each combination is reachable with substraction and these 4:
+// 90 = XC 
+// 50 = L
+// 40 = XL
+// 10 = X
+
+/// TerminalExpression
+public class RomanTenExpression : RomanExpression
+{
+    public override void Interpret(RomanContext value)
+    {
+        while ((value.Input - 90) >= 0)
+        {
+            value.Output += "XC";
+            value.Input -= 90;
+        }
+
+        while ((value.Input - 50) >= 0)
+        {
+            value.Output += "L";
+            value.Input -= 50;
+        }
+
+        while ((value.Input - 40) >= 0)
+        {
+            value.Output += "XL";
+            value.Input -= 40;
+        }
+
+        while ((value.Input - 10) >= 0)
+        {
+            value.Output += "X";
+            value.Input -= 10;
+        }
+    }
+}
+
+// 900 = CM
+// 800 = DCCC
+// 700 = DCC
+// 600 = DC
+// 500 = D
+// 400 = CD
+// 300 = CCC
+// 200 = CC
+// 100 = C
+
+// simplified - each combination is reachable with substraction and these 4:
+// 900 = CM
+// 500 = D
+// 400 = CD
+// 100 = C
+
+/// TerminalExpression
+public class RomanHunderdExpression : RomanExpression
+{
+    public override void Interpret(RomanContext value)
+    {
+        while ((value.Input - 900) >= 0)
+        {
+            value.Output += "CM";
+            value.Input -= 900;
+        }
+
+        while ((value.Input - 500) >= 0)
+        {
+            value.Output += "D";
+            value.Input -= 500;
+        }
+
+        while ((value.Input - 400) >= 0)
+        {
+            value.Output += "CD";
+            value.Input -= 400;
+        }
+
+        while ((value.Input - 100) >= 0)
+        {
+            value.Output += "C";
+            value.Input -= 100;
+        }
+    }
+}
+::::::::::
+Program.cs
+::::::::::
+var expressions = new List<RomanExpression>
+{
+    new RomanHunderdExpression(),
+    new RomanTenExpression(),
+    new RomanOneExpression(),
+};
+
+var context = new RomanContext(5);
+foreach (var expression in expressions)
+{
+    expression.Interpret(context);
+}
+Console.WriteLine($"Translating Arabic numerals to Roman numerals: 5 = {context.Output}");
+
+context = new RomanContext(81);
+foreach (var expression in expressions)
+{
+    expression.Interpret(context);
+}
+Console.WriteLine($"Translating Arabic numerals to Roman numerals: 81 = {context.Output}");
+
+context = new RomanContext(733);
+foreach (var expression in expressions)
+{
+    expression.Interpret(context);
+}
+Console.WriteLine($"Translating Arabic numerals to Roman numerals: 733 = {context.Output}");
+
+</pre></fieldset></div><hr/>
+<div class='container' id='card113'><img src='113.png' alt='113' title='113'/><fieldset><p>asdf</p></fieldset></div><hr/>
+<div class='container' id='card114'><img src='114.png' alt='114' title='114'/><fieldset><p>asdf</p></fieldset></div><hr/>
+
+<div style='font-size:x-large; margin:5px;'><a href="#top" onclick='setCurrInd(1);'>[Back to Top]</a><input style='margin-left: 20px;' type="button" onclick='setCurrInd();' value="Jump to ..." /></div>
+</body>
+</html>

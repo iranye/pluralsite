@@ -1,0 +1,23 @@
+C# 10 Design Patterns
+
+https://github.com/KevinDockx/CSharp10DesignPatterns.git
+
+
+SLN to PROJ
+dotnet new sln --name C#_10_DesignPatterns
+dotnet new console --name Application --output src\Application
+dotnet new classlib --name Library --output src\Library
+dotnet sln add .\Singleton\Singleton.csproj
+
+warning CS8603: Possible null reference return.
+
+
+
+
+
+FFF
+
+REF
+C:\src\code\InterSystems\HCHBLIB\HchbLib\Vendors\CellTrak\EVV\GenerateVisitRequestBPL.cls
+C:\src\code\InterSystems\HCHBLIB\HchbLib\Vendors\CellTrak\EVV\DTL\PostSubmissionRequestDTL.cls
+FFF
