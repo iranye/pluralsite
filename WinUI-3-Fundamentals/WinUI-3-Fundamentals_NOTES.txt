@@ -1,0 +1,33 @@
+WinUI 3 Fundamentals
+
+MUST HAVE WinUI Workload installed
+MUST ENABLE Developer Mode on Windows 10/11 to sideload apps
+
+Pick up @
+10.1
+4.10 if you want to implement "switch nav pane to other side"
+
+
+
++-- TECH STACK --+
+Toggle Light-Dark Modes
+Similar to WPF + MVVM, except WinUI has:
+  x:Bind
+  Built-in Visibility Converters
+  Modern UI look and feel
+
+
+
++-- MODULE 02 --+
+WiredBrainCoffee.CustomersApp
+
+
+
++-- Microsoft Github --+
+https://github.com/microsoft/microsoft-ui-xaml
+
+
++-- BACK UP FILES --+
+7zproject WinUI-3-Fundamentals %OneDrive%\NewStuff\Pluralsight\Thomas\WinUI-3-Fundamentals
+
+

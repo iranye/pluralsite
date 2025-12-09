@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WiredBrainCoffee.CustomersApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WiredBrainCoffee.CustomersApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
