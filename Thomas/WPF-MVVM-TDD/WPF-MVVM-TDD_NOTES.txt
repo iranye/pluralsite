@@ -1,0 +1,57 @@
+https://github.com/thomasclaudiushuber/WPFandMVVM_TestDrivenDevelopment
+
+PICK UP AT:
+10.1
+
+Implement Log-to-file
+this.config = config ?? throw new ArgumentNullException(nameof(config));
+
+Hi, thanks for creating this course, it's been very helpful.
+
+Also, I was implementing a new FriendStorage App using .net6 + Microsoft.Extensions.DependencyInjection instead of Autofac and had a couple questions.
+
+It seems with Microsoft DI, using constructor injection of Func<IDataService> into the NavigationDataProvider doesn't work, so after reviewing other materials, I came up with another way.
+
+As part of App startup, I'm registering interfaces like this:
+
+private void ConfigureServices(ServiceCollection services)
+{
+    services.AddTransient<MainWindow>();
+    services.AddTransient<MainViewModel>();
+    services.AddTransient<INavigationViewModel, NavigationViewModel>();
+
+    services.AddTransient<IDataService, FileDataService>();
+
+    services.AddTransient<INavigationDataProvider>((serviceProvider) =>
+    {
+        var serviceScopeFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
+        return new NavigationDataProvider(serviceScopeFactory);
+    });
+
+    services.AddTransient<IDataService, FileDataService>();
+}
+
+
+Then in NavigationDataProvider, I'm able to use the "using" construct to have the Dispose happen as expected.
+public class NavigationDataProvider : INavigationDataProvider
+{
+    private readonly IServiceScopeFactory serviceScopeFactory;
+
+    public NavigationDataProvider(IServiceScopeFactory serviceScopeFactory)
+    {
+        this.serviceScopeFactory = serviceScopeFactory;
+    }
+
+    public IEnumerable<LookupItem> GetAllFriends()
+    {
+        using var scope = serviceScopeFactory.CreateScope();
+        var dataService = scope.ServiceProvider.GetRequiredService<IDataService>();
+        return dataService.GetAllFriends();
+    }
+}
+
+What I'm wondering:
+Is this the correct approach or is there a better way?
+In the ConfigureServices method, would it be safer to use services.AddScoped<INavigationDataProvider> instead of services.AddTransient<INavigationDataProvider>?
+Please provide any recommendations you might have.
+
