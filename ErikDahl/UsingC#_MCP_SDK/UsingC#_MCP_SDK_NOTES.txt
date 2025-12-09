@@ -1,0 +1,49 @@
+ErikDahl
+UsingC#_MCP_SDK
+
++-- PICK UP AT --+
+02.05 (Got as far as seeing the Aspire Dashboard, but failed to start the mcp-inspector)
+
++-- TECH STACK --+
+dotnet9
+.NET Aspire
+
++-- GITHUBS --+
+Main C# MCP SDK Repo:
+https://github.com/dahlsailrunner/hello-csharp-mcp-sdk
+
+AUTHOR_CODE Repo:
+https://github.com/modelcontextprotocol/csharp-sdk
+
+
+
++------ MODULE 02 --------+
++-- SECTION 02.05 --+
+--01. New Aspire Starter App => Hello.AspNetCoreMcp
+--02. Delete Web front-end app (Hello.AspNetCoreMcp.Web) => Remove reference to deleted app in AppHost.cs
+--03. New ASP.NET Core Empty App => Hello.AspNetCoreMcp.McpServer => NuGet: ModelContextProtocol.AspNetCore (PRE-RELEASE)
+--04. COPY+PASTE+MASSAGE code from https://github.com/modelcontextprotocol/csharp-sdk/blob/main/samples/AspNetCoreMcpServer/Program.cs
+      into Hello.AspNetCoreMcp.McpServer\Program.cs
+--05. COPY+PASTE Code from https://github.com/modelcontextprotocol/csharp-sdk/blob/main/samples/AspNetCoreMcpServer/Tools/WeatherTools.cs
+      into new WeatherTools.cs
+--06. Add Reference to apipService in Hello.AspNetCoreMcp.AppHost\AppHost.cs
+--07. Add additional HttpClientFactory configuration for "SimpleWeather" api
+--08. Impl "SimpleWeather" MCP Server Tool in WeatherTools.cs
+--09. Right click project: Hello.AspNetCoreMcp.AppHost => Add => .NET Aspire Package => owner:Aspire tags:integration+hosting mcp => CommunityToolkit.Aspire.Hosting.McpInspector v 9.x.x
+--10. Build + Run and this should bring up a web-based dashboard
+
+
++-- ADD MCP MCP NUGET PACKAGES --+
+
+    <PackageReference Include="ModelContextProtocol" Version="0.3.0-preview.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
+
++-- ADD MCP REQUESTS IN POSTMAN --+
+On a collection click the ellipsis => Add Request => MCP
+In Address bar enter the path to the exe:
+C:\src\NewStuff\Pluralsight\ErikDahl\UsingC#_MCP_SDK\Hello.Mcp\Hello.Mcp\bin\Debug\net10.0\Hello.Mcp.exe
+
+
+
++-- BACK UP TO ONEDRIVE --+
+7zproject UsingC#_MCP_SDK %ONEDRIVE%\NewStuff\Pluralsight\ErikDahl\UsingC#_MCP_SDK
