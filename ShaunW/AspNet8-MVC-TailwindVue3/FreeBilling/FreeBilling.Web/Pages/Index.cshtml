@@ -1,0 +1,24 @@
+﻿@page
+@model FreeBilling.Web.Pages.IndexModel
+@{
+    ViewBag.Title = "Home Page";
+
+    // throw new InvalidOperationException("Fail!");
+}
+
+<h1>Free Billing</h1>
+<p>A Billing Solution for Small Companies</p>
+
+@if (Model.Customers.Count > 0)
+{
+    <ul>
+        @foreach (var customer in Model.Customers)
+        {
+            <li>@customer.CompanyName</li>
+        }
+    </ul>
+}
+else
+{
+    <div>No Customers Found</div>
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Page</title>
+    <link rel="stylesheet" type="text/css" href="site.css" />
+    <script defer src="/index.js"></script>
+</head>
+<body>
+    <header>
+        <img src="/imgs/logo.png" alt="Our Logo" />
+        <h1><a href="/index.html">Free Billing</a></h1>
+    </header>
+    <section>
+        <p>Welcome to the Open Source Billing System</p>
+        <p><em>Some of our favorite features:</em></p>
+        <ul>
+            <li>It's free</li>
+            <li>You learn to program the web</li>
+            <li>Make Money!</li>
+        </ul>
+        <hr/>
+        <div class="team-list">
+            <h3>Our Team</h3>
+            <div class="team-item">
+                <img src="imgs/mary.jpg" alt="Mary" />
+                <div>Mary</div>
+            </div>
+            <div class="team-item">
+                <img src="imgs/betty.jpg" alt="Betty" />
+                <div>Betty</div>
+            </div>
+            <div class="team-item">
+                <img src="imgs/john.jpg" alt="John" />
+                <div>John</div>
+            </div>
+            <div class="team-item">
+                <img src="imgs/nancy.jpg" alt="Nancy" />
+                <div>Nancy</div>
+            </div>
+        </div>
+        <button id="showButton">Show Form</button>
+        <div id="theForm">
+            <form>
+                <label for="time">Time</label>
+                <br/>
+                <input type="text" name="time" id="time" />
+                <br/>
+                <label for="workPerformed">Work Performed</label>
+                <br/>
+                <textarea rows="4" name="workPerformed" id="workPerformed" ></textarea>
+                <br/>
+                <label for="client">Client</label>
+                <select id="client" name="client">
+                    <option>Pick One...</option>
+                    <option>Smith Towing</option>
+                    <option>Jakes Mufflers</option>
+                    <option>Paintorama</option>
+                </select>
+                <br/>
+                <label for="requested">Client Requested?</label>
+                <input type="checkbox" id="requested" name="clientRequested" />
+                <br/>
+                <input type="submit" value="Save" />
+            </form>
+        </div>
+    </section>
+    <footer>
+        <br/>
+        &copy; 2025 - <strong>Free Billing</strong>
+    </footer>
+</body>
+</html>

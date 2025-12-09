@@ -1,0 +1,194 @@
+AspNet8-MVC-TailwindVue3
+
+Building a Web App with ASP.NET Core 6, MVC, Entity Framework 6, TailwindCSS, and Vue 3
+
+Pick Up At:
+12.4
+
+https://shawnl.ink/end-to-end-github
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+STACK STACK STACK (FULL-STACK)
+HTML
+ASP.NET Core MVC
+ASP.NET Core Controllers REST API
+EF Core
+NPM Task Runner (VS Extension)
+    - Encountered issues with, e.g., updating site.css unless css command was run in separate terminal:
+        C:\src\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3\FreeBilling\FreeBilling.Web\package.json
+TailwindCSS
+    https://tailscan.com/tailwind/backgrounds/background-color-class
+Vue3
+Identity
+
+john@freebilling.com
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+QUERIES
+select * from AspNetUsers;
+select * from Customers;
+select * from TimeBills;
+select * from Employees;
+
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+MODULE 112 MODULE 12 MODULE 12
+
+Test new vue pages using:
+http://localhost:8888/customerBilling/
+
+E.g.:
+http://localhost:8888/customerBilling/login
+
+Using this results in 404 NOT FOUND responses:
+http://localhost:55297/login
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+MODULE 11 MODULE 11 MODULE 11
+
+npm install vue-router@4
+npm install axios
+
+Look at "Vue-specific" pages:
+http://localhost:55297/
+http://localhost:55298/
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+MODULE 10 MODULE 10 MODULE 10
+
+Rt-click Sln => Add new project => Vue App
+FreeBilling.App
+
+--1. open CLI to FreeBilling\freebilling.app, then: npm install
+
+--2. npm run dev, if it works it gives a link which can be viewed in a browser: e.g.,  http://localhost:55297/
+
+--3. Configure Task Runner Explorer: switch to freebilling.app => rt-click on dev => Bindings => Project Open
+
+--4. Clear out un-needed files (see git commit(s))
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+MODULE 09 MODULE 09 MODULE 09
+
+dotnet user-jwts key
+dotnet user-jwts create
+
+Microsoft.AspNetCore.Authentication.JwtBearer
+Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+--1. Right-Click on Project => Add => New Scaffolded Item => Identity => Add
+
+--2. Checkboxes to Check:
+  Account\ConfirmEmailChange
+  Account\ForgotPasswordConfirmation
+  Account\ResetPasswordConfirmation
+  Account\ConfirmEmail
+  Account\ForgotPassword
+  Account\Login
+  Account\Logout
+  Account\Register
+  Account\ResetPassword
+
+--3. Select the DbContext (i.e., BillingContext)
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+MODULE 08 MODULE 08 MODULE 08
+
+FluentValidation.DependencyInjectionExtensions
+Include="Mapster" Version="7.4.0" (AUTHOR=7.3.0)
+
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+MODULE 05 MODULE 05 MODULE 05
+
+:: :: :: :: ::
+Install & Use tailwindcss:
+--01. Install NPM Task Runner (VS Extension)
+--02. Right-click on project => Open in Terminal (opens a PS CLI)
+--03. node --version => [author = v18.17.0] [exeter = v18.20.5]
+		--3a. update and use specific version:
+		nvm install 18.17.0
+		nvm use 18.17.0
+--04. npm --version => [author = v9.6.7] [exeter = v10.8.2]
+--05. npm init -y
+--06. npx tailwindcss init
+        npm i tailwindcss@3.4.17
+--07. Add file in wwwroot: site.src.css with:
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+--08. Update tailwind.config.js with:
+    content: [
+        "./Pages/**/*.{html,cshtml}",
+        "./wwwroot/**/*.{html,htm}"
+    ],
+--09. Run tailwindcss command to generate site.css:
+    npx tailwindcss -i ./wwwroot/site.src.css -o ./wwwroot/site.css
+--10. update package.json to run tailwindcss command with watch-for-changes:
+  "scripts": {
+    "css": "npx tailwindcss -i ./wwwroot/site.src.css -o ./wwwroot/site.css -w"
+  },
+--11. test package.json update:
+    npm run css
+--12. Open Task Runner Explorer and right click "css" => Bindings => Project Open
+
+
+:: :: :: :: ::
+
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+MODULE 03 MODULE 03 MODULE 03
+
+dotnet --list-sdks
+8.0.404 [C:\Program Files\dotnet\sdk]
+9.0.101 [C:\Program Files\dotnet\sdk]
+
+mkdir FirstCore; cd FirstCore
+dotnet new globaljson --sdk-version 8.0.404
+dotnet new console
+dotnet add package Westwind.Utilities
+dotnet restore
+dotnet build
+dotnet run
+
+
+jdbc:sqlite:C:/Data/FreeBilling.db
+
+:: :: :: :: :: :: ::
+New Project => ASP.NET Core Empty
+FreeBilling
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+
+
+Content Context
+Padding Pain
+Border  Bordering on
+Margin  Masochism
+
+dotnet --list-sdks
+
+:: :: :: :: :: :: :: :: :: :: :: :: :: :: :: 
+BACKUP/RESTORE CODE
+
+cd C:\src\NewStuff\Pluralsight\ShaunW\
+7zproject AspNet8-MVC-TailwindVue3 %OneDrive%\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3
+7zproject AspNet8-MVC-TailwindVue3 \\exeter\Shared\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3
+
+[FROM EXETER]
+7zproject AspNet8-MVC-TailwindVue3 I:\Shared\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3
+
+\\exeter\Shared\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3
+\\exeter\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3
+
+:: :: :: BACKUP/RESTORE C:\DATA :: :: ::
+copy /y C:\data\FreeBilling.db %OneDrive%\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3
+
+copy /y C:\data\FreeBilling.db %OneDrive%\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3
+copy /y C:\data\FreeBilling.db \\exeter\Shared\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3\FreeBilling-20250128.db
+
+copy /y %OneDrive%\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3\FreeBilling-Identity.db c:\Data\FreeBilling.db
+copy /y \\exeter\NewStuff\Pluralsight\ShaunW\AspNet8-MVC-TailwindVue3\FreeBilling.db C:\Data
+
+

@@ -1,0 +1,51 @@
+GET http://localhost:8888/api/customers
+
+###
+GET http://localhost:8888/api/customers?includeAddressInfo=true
+
+###
+GET http://localhost:8888/api/customers/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huQGZyZWViaWxsaW5nLmNvbSIsImp0aSI6ImUxOTExOGExLTNkNDEtNDRjNy04ZWMzLTI4ZDc1MzQxMjZjZCIsInVuaXF1ZV9uYW1lIjoiam9obkBmcmVlYmlsbGluZy5jb20iLCJleHAiOjE3Mzg2MTAxMjAsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODg4OCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODg4OCJ9.A17-EoEVdpTy3qXhTGOKnonFLDoKKapuXFcyHl85CPg
+
+###
+GET http://localhost:8888/api/timebills/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huQGZyZWViaWxsaW5nLmNvbSIsImp0aSI6ImUxOTExOGExLTNkNDEtNDRjNy04ZWMzLTI4ZDc1MzQxMjZjZCIsInVuaXF1ZV9uYW1lIjoiam9obkBmcmVlYmlsbGluZy5jb20iLCJleHAiOjE3Mzg2MTAxMjAsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODg4OCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODg4OCJ9.A17-EoEVdpTy3qXhTGOKnonFLDoKKapuXFcyHl85CPg
+
+###
+POST http://localhost:8888/api/timebills
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huQGZyZWViaWxsaW5nLmNvbSIsImp0aSI6IjgxZWEwYjhlLTk5YzUtNGZlNy04YmIzLTZlYzdhZDgwMjBlMiIsInVuaXF1ZV9uYW1lIjoiam9obkBmcmVlYmlsbGluZy5jb20iLCJleHAiOjE3MzgwNzUyNDksImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODg4OCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODg4OCJ9.DU6Tykv5fFiN5Ri6lPPEAzB4ThH2KMTLzcYpX7aCTbk
+Content-Type: application/json
+{
+    "hoursWorked": 8,
+    "billingRate": 85.00,
+    "date": "2023-08-09",
+    "workPerformed": "Couple things and walked the dogs",
+    "employeeid": 2,
+    "customerid": 2
+}
+
+###
+GET http://localhost:8888/api/customers/2/timebills
+
+###
+GET http://localhost:8888/api/customers/2/timebills/3
+
+###
+POST http://localhost:8888/api/auth/token
+Content-Type: application/json
+{
+    "username": "foo@bar.com",
+    "password": "Test1234!"
+}
+
+###
+POST http://localhost:8888/api/auth/token
+Content-Type: application/json
+{
+    "username": "john@freebilling.com",
+    "password": "Test1234!"
+}
+
+###
+GET http://localhost:8888/api/employees
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huQGZyZWViaWxsaW5nLmNvbSIsImp0aSI6ImZiMzA1N2M3LTdlMWYtNGY2ZS1hOTVkLWFmYjRiYzY3NjJkMSIsInVuaXF1ZV9uYW1lIjoiam9obkBmcmVlYmlsbGluZy5jb20iLCJleHAiOjE3MzkwMzk4NDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODg4OCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODg4OCJ9.EmnXzpziB7_rcbYJ3lJls1pQmaX1DT2owN0vrTa4rxw
