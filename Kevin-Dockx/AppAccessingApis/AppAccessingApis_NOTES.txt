@@ -1,0 +1,29 @@
+AppAccessingApis
+
+https://github.com/KevinDockx/AccessingApisWithHttpClient
+
+
+http://localhost:5001/swagger/index.html
+
+Use this URL in NSwagStudio:
+	http://localhost:5001/swagger/v1/swagger.json
+	Movies.Client.Models
+	EXCLUDED TYPE NAMES:
+	OperationType,IContractResolver,MovieForUpdateJsonPatchDocument,MovieForUpdateOperation
+
+NUGET(S):
+	For Client:
+		Microsoft.Extensions.Http
+
+
+STACK:
+	API w Controllers
+	EF Core + SQLite
+	Polly - TBI
+
+
+:: 7zproject AppAccessingApis %ONEDRIVE%\NewStuff\Pluralsight\Kevin-Dockx\AppAccessingApis
+
+
+
+git update-index --assume-unchanged MoviesApp\Movies.API\Movies.db 
