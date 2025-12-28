@@ -1,0 +1,12 @@
+GitHub Foundations: GitHub Project Management
+
+GitHubFoundation_ProjectMgmnt
+
+C:\src\GitHubFoundation_ProjectMgmnt 
+
++-- FILES --+
+
+github-proj-mgmt
+
+
+
