@@ -1,0 +1,19 @@
+GitHub Foundations: GitHub Project Management
+
+GitHubFoundation_ProjectMgmnt
+
+C:\src\GitHubFoundation_ProjectMgmnt 
+
++---- MODULES ----+
+
+
++-- MODULE-02 --+
+Within a repo in github => Click Projects => New Project => Board 
+
+
++-- FILES --+
+
+github-proj-mgmt
+
+
+
