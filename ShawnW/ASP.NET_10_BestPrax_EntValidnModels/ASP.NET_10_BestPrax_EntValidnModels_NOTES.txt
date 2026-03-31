@@ -1,0 +1,9 @@
+ShawnW
+
+ASP.NET Core 10 Best Practices: Entities, Validation, and Data Models
+
+
+ASP.NET_10_BestPrax_EntValidnModels
+
+[pluralsite]
+dotnet-core-courses
