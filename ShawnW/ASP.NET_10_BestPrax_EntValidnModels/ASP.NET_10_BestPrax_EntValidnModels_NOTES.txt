@@ -1,9 +1,27 @@
 ShawnW
 
 ASP.NET Core 10 Best Practices: Entities, Validation, and Data Models
-
-
 ASP.NET_10_BestPrax_EntValidnModels
+
++-- STACK --+
+net10
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Cosmos
+
+Force property assignment on create object:
+  public required string WorkDescription { get; set; }
+
+
++-- COMMANDS --+
+cd JurisTempus.Data
+dotnet ef database update -s ..\JurisTempus\
+
+
++-- AUTHOR_CODE --+
+https://github.com/psauthor/ModelsCourse/tree/10
+
+
++-- FILES --+
 
 [pluralsite]
 dotnet-core-courses
