@@ -3,10 +3,20 @@ ShawnW
 ASP.NET Core 10 Best Practices: Entities, Validation, and Data Models
 ASP.NET_10_BestPrax_EntValidnModels
 
++-- PICK UP AT --+
+3.4
+
++-- Code-Along --+
+LogicSolver 
+
+
 +-- STACK --+
 net10
 Microsoft.EntityFrameworkCore.SqlServer
 Microsoft.EntityFrameworkCore.Cosmos
+Mapster instead of AutoMapper
+Composite Properties (i.e., Client.Address saved to DB w/o using a separate Address table)
+Configure: "EF Core Show SQL Command"
 
 Force property assignment on create object:
   public required string WorkDescription { get; set; }
