@@ -11,7 +11,7 @@ LogicSolver
 
 
 +-- STACK --+
-net10
+dotnet10
 Microsoft.EntityFrameworkCore.SqlServer
 Microsoft.EntityFrameworkCore.Cosmos
 Mapster instead of AutoMapper
