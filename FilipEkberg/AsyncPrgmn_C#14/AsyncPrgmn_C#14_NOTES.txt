@@ -1,0 +1,9 @@
+FilipEkberg
+
+Asynchronous Programming in C# 14
+
+https://github.com/fekberg/c-sharp-asynchronous-programming
+
++-- STACK --+
+WFP stock data app, includes both Windows and Cross-Platform code
+Read data from a file on disk asynchronously
