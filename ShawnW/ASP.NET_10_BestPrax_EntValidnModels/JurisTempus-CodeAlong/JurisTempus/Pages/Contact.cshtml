@@ -1,0 +1,20 @@
+@page
+@{
+  ViewData["Title"] = "Contact";
+}
+<h1>Contact</h1>
+<form method="post">
+  <div class="flex flex-col">
+    <label>Email:</label>
+    <input class="input" />
+    <label>Subject: </label>
+    <input class="input" />
+    <label>Message:</label>
+    <textarea class="textarea" rows="5"></textarea>
+    <div class="flex p-2">
+      <a href="/" class="btn btn-info">Cancel</a>
+      <input type="submit" class="btn btn-success" value="Send" />
+    </div>
+  </div>
+</form>
+

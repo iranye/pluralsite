@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: business --default;
+}
+
+h1, h2, h3, h4 {
+  @apply font-bold;
+}
+
+h1 {
+  @apply text-4xl;
+}
+
+h2 {
+  @apply text-3xl;
+}
+
+h3 {
+  @apply text-2xl;
+}
+
+h4 {
+  @apply text-xl;
+}
+
+.input-validation-error {
+  @apply bg-red-600/10;
+}
+
+.field-validation-error {
+  @apply text-red-700 py-1;
+}

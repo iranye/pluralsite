@@ -1,0 +1,19 @@
+{
+  "name": "juristempus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "css:build": "tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/site.min.css --minify",
+    "css:dev": "tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/site.min.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "daisyui": "^5.5.14",
+    "tailwindcss": "^4.1.18"
+  }
+}
