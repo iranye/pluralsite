@@ -1,0 +1,27 @@
+Adhithi Ravichandran
+adhithiravi
+
+
++----------------------------------------------------------+--------+--------+--------+
++-- Applied AI-Assisted Coding ----------------------------+--------+--------+--------+
++----------------------------------------------------------+--------+--------+--------+
+
+
++--- STACK ---+
+React app for Bethany's pie shop
+Cursor IDE
+
++---- Module 01 ----+
+git clone https://github.com/adhithiravi/AI-Assisted-Coding.git
+
+git checkout m1-starter
+
+npm install
+
+Backe nd start:
+  npm start:dev
+
+Front end start:
+  npm run dev
+
++---FILES---------------------------------------+--------+
