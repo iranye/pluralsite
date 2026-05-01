@@ -7,6 +7,9 @@ ASP.NET Core (MVC, Razor, etc)
 EF Core
 
 
++--- MODULE 04 ---------------------------------------+--------+
+builder.Services.AddKeyedScoped<IPieRepository, MockPieRepository>("pieReop");
+
 +--- MODULE 03 ---------------------------------------+--------+
 ASP.NET Core Empty => BethanysPieShop
 
