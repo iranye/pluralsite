@@ -6,11 +6,14 @@ ASPNET_Core_Fundamentals
 ASP.NET Core (MVC, Razor, etc)
 EF Core
 
+
++--- MODULE 03 ---------------------------------------+--------+
+ASP.NET Core Empty => BethanysPieShop
+
+
 +--- MODULE 02 ---------------------------------------+--------+
 
-+-- New Project --+
+New Project via CLI, VS Code, etc
 
 https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-sdk-templates
-
-ASP.NET Core Empty
 
