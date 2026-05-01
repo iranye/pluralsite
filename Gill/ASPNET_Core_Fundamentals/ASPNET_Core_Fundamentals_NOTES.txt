@@ -12,6 +12,9 @@ builder.Services.AddKeyedScoped<IPieRepository, MockPieRepository>("pieReop");
 
 https://localhost:7108/pie/list
 
+libman:
+right-click project => Add => client-side library
+
 +--- MODULE 03 ---------------------------------------+--------+
 ASP.NET Core Empty => BethanysPieShop
 
