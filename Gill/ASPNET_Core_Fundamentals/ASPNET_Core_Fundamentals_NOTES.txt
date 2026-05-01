@@ -10,6 +10,8 @@ EF Core
 +--- MODULE 04 ---------------------------------------+--------+
 builder.Services.AddKeyedScoped<IPieRepository, MockPieRepository>("pieReop");
 
+https://localhost:7108/pie/list
+
 +--- MODULE 03 ---------------------------------------+--------+
 ASP.NET Core Empty => BethanysPieShop
 
