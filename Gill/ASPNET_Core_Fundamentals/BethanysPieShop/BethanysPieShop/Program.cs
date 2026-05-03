@@ -23,4 +23,6 @@ if (app.Environment.IsDevelopment())
 
 app.MapDefaultControllerRoute();
 
+DbInitializer.Seed(app);
+
 app.Run();

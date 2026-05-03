@@ -1,11 +1,22 @@
 ASPNET_Core_Fundamentals
 
 +----------------------------------------------------------+--------+--------+--------+
-+-- Stack ---------------------------------------+--------+--------+--------+
++-- Stack -------------------------------------------------+--------+--------+--------+
 +----------------------------------------------------------+--------+--------+--------+
 ASP.NET Core (MVC, Razor, etc)
+jQuery
+Bootstrap
 EF Core
 
+Pick up at m6
+
++--- NEXT STEPS ---------------------------------------+--------+
+Get a json dump of data including path(s) to jpgs and download jpgs to local drive
+Consider a WPF app that can hit controller methods so as not have to implement separate API (e.g., support a Music Curator app as both web and rich-client based)
+
+
++--- MODULE 05 ---------------------------------------+--------+
+Implement Sqlite-based repo(s)
 
 +--- MODULE 04 ---------------------------------------+--------+
 builder.Services.AddKeyedScoped<IPieRepository, MockPieRepository>("pieReop");
