@@ -10,7 +10,11 @@ EF Core
 
 Pick up at m6
 
+File in AUTHOR_CODE:
+"C:\src\dev\pluralsite\Gill\ASPNET_Core_Fundamentals\AUTHOR_CODE\asp-dot-net-core-6-fundamentals\06\demos\BethanysPieShop\BethanysPieShop\libman.json"
+
 +--- NEXT STEPS ---------------------------------------+--------+
+Look out for jQuery & Bootstrap usages
 Get a json dump of data including path(s) to jpgs and download jpgs to local drive
 Consider a WPF app that can hit controller methods so as not have to implement separate API (e.g., support a Music Curator app as both web and rich-client based)
 
