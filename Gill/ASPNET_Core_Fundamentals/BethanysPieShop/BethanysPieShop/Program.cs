@@ -1,11 +1,16 @@
 using BethanysPieShop.Data;
+using BethanysPieShop.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<BethanysPieShopDbContext>(o => o.UseSqlite(
+	builder.Configuration["ConnectionStrings:PieShopConnectionString"]));
+
 builder.Services.AddScoped<ICategoryRepository, MockCategoryRepository>();
-builder.Services.AddScoped<IPieRepository, MockPieRepository>();
+builder.Services.AddScoped<IPieRepository, PieRepository>();
 
 var app = builder.Build();
 

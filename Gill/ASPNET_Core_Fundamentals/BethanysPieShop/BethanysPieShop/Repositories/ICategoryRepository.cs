@@ -1,6 +1,6 @@
 ﻿using BethanysPieShop.Models;
 
-namespace BethanysPieShop.Data
+namespace BethanysPieShop.Repositories
 {
     public interface ICategoryRepository
     {
