@@ -1,5 +1,8 @@
 ASPNET_Core_Fundamentals
 
+Pick up at m7
+
+
 +----------------------------------------------------------+--------+--------+--------+
 +-- Stack -------------------------------------------------+--------+--------+--------+
 +----------------------------------------------------------+--------+--------+--------+
@@ -7,8 +10,6 @@ ASP.NET Core (MVC, Razor, etc)
 jQuery
 Bootstrap
 EF Core
-
-Pick up at m6
 
 File in AUTHOR_CODE:
 "C:\src\dev\pluralsite\Gill\ASPNET_Core_Fundamentals\AUTHOR_CODE\asp-dot-net-core-6-fundamentals\06\demos\BethanysPieShop\BethanysPieShop\libman.json"
