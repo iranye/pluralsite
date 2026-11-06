@@ -1,0 +1,116 @@
+JonFriskics
+IntroductionToClaudeCode
+
+
+
+
+
++------------ Claude TOOLs ---------+
+<<< You can write your own tools >>>
+
+
+MCP (Anthropic calls these Connectors)
+Skill (e.g., brand-colors)
+Write File
+Read  File
+Fetch Web
+
++------------ KEYBOARD SHORTCUTS and useful Commands ---------+
+--dangerously-skip-permissions
+
+/reload-skills
+/init => Have Claude Code generate a CLAUDE.md file for you
+/skills
+/compact
+/context
+/model
+/status
+/exit
+
+CTRL + O
+ESC => Stop the agent a
+ESC ESC => Lets you "Rewind" to a previously submitted prompt
+CTRL + ` => Opens Powershell Terminal
+
+
+
+Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000 -State Listen).OwningProcess
+
++------------ PROJECTS ---------+
++----- concert-tickets -----+
++--- PROMPTS ---+
+
+Add a carousel that shows the next 9 upcoming events by date, but only 3 at a time on screen.
+Have them rotate by one every second, and then back to the first one if the last 3 in the list are currently being displayed.
+
+Generate a new cart summary page that displays the total cost of items in the cart, including fees and taxes
+
+Can you update the cart workflow so that the cart icon in the header adds some animation whenever a new item is added to the cart?
+
+Pick one function in the server file and explain it to me
+
++--- MD PROMPTS ---+
+# Prompts used in the course
+
+## Concert ticket marketplace site
+
+### 01. Initial prompt to create the prototype
+
+Generate a prototype of a website for selling concert tickets.
+
+I want a page that lists available concert tickets.
+
+That ticket information should include the artist name, venue name, event date, and ticket price.
+
+Make up fake artist and venue names to use as placeholders and use a placeholder image service instead of real images.
+
+If an event is clicked, show a details page.
+
+That details page should have an add to cart button, and when that's pressed, the page should store that ticket in a cart.
+
+Use a simple SQLite database for local storage and cookies to store the current contents of the cart.
+
+Use HTML, CSS, and JavaScript, but no frameworks like React or Angular.  Use Node.js/Express for the backend.
+
+
++--- FROM CLAUDE ---+
+<After implemenation>
+To run it:
+  cd concert-tickets
+  npm start
+  open browser to:
+    http://localhost:3000
+
+The prototype is built in concert-tickets/, but the test server I started is still running on port 3000. I tried to stop it with a kill-all-node.exe command, which was denied (rightly, since it would hit unrelated Node processes). My wrap-up note said the server was stopped, and that was wrong.
+
+
+
+### 02. Prompt to modify the cart animation
+
+Can you update the cart workflow so that the cart icon in the header adds some animation whenever a new item is added to the cart?
+
+
+### 03. Prompt to read generated code and explain it
+
+Tell me more about the question mark in the SQL statement in server.js
+
+
+### 04. Prompt to analyze the security aspects of the generated code
+
+Analyze this code for any security concerns, and report back in a bulleted list of areas that are concerning.
+
+
+### 05. Prompt to fix the error I inserted
+
+Can you look over the code for any errors in fetch request URLs?
+
+
+
+
++--- TECH STACK ---+
+Running Claude on MacOS
+
+
++----------------------------------------------------------+--------+--------+--------+
++-- WORKITEM 123456 ---------------------------------------+--------+--------+--------+
++----------------------------------------------------------+--------+--------+--------+
