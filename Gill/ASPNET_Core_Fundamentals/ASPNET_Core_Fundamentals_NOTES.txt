@@ -1,0 +1,43 @@
+ASPNET_Core_Fundamentals
+
+Pick up at m7
+
+
++----------------------------------------------------------+--------+--------+--------+
++-- Stack -------------------------------------------------+--------+--------+--------+
++----------------------------------------------------------+--------+--------+--------+
+ASP.NET Core (MVC, Razor, etc)
+jQuery
+Bootstrap
+EF Core
+
+File in AUTHOR_CODE:
+"C:\src\dev\pluralsite\Gill\ASPNET_Core_Fundamentals\AUTHOR_CODE\asp-dot-net-core-6-fundamentals\06\demos\BethanysPieShop\BethanysPieShop\libman.json"
+
++--- NEXT STEPS ---------------------------------------+--------+
+Look out for jQuery & Bootstrap usages
+Get a json dump of data including path(s) to jpgs and download jpgs to local drive
+Consider a WPF app that can hit controller methods so as not have to implement separate API (e.g., support a Music Curator app as both web and rich-client based)
+
+
++--- MODULE 05 ---------------------------------------+--------+
+Implement Sqlite-based repo(s)
+
++--- MODULE 04 ---------------------------------------+--------+
+builder.Services.AddKeyedScoped<IPieRepository, MockPieRepository>("pieReop");
+
+https://localhost:7108/pie/list
+
+libman:
+right-click project => Add => client-side library
+
++--- MODULE 03 ---------------------------------------+--------+
+ASP.NET Core Empty => BethanysPieShop
+
+
++--- MODULE 02 ---------------------------------------+--------+
+
+New Project via CLI, VS Code, etc
+
+https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-sdk-templates
+

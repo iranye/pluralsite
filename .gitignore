@@ -6,6 +6,7 @@ timestamps.txt
 [Bb]in
 [Dd]ebug*/
 .idea/
+lib/
 obj/
 packages/
 _TBD/
